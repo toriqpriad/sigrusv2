@@ -1,0 +1,54 @@
+var url = localStorage.getItem('backend_url');
+
+function ServerPost(next_url,input,reload_action) {
+  $.notify({
+    message: '<i id="notif" class="fa fa-cog fa-spin"></i> Sedang memproses ... .',
+  }, {type: 'warning', delay: 50});
+  $.ajax({
+    url: url + next_url,
+    method: 'POST',
+    data: input,
+    dataType: 'json',
+    contentType: 'application/json',
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      setTimeout(function ()
+      {
+        if (response.response == 'OK') {
+
+          $.notify({
+            message: '<i class="fa fa-check"></i> ' + response.message,
+          }, {type: 'success'})
+        } else {
+          $.notify({
+            message: '<i class="fa fa-genderless"></i> ' + response.message,
+          }, {type: 'danger'})
+          $.each(response.data['error'], function(index, item) {
+            $.notify({
+              message: '<i class="fa fa-genderless"></i> ' + item,
+            }, {type: 'danger'})
+          })
+        }
+        if(reload_action){
+        setTimeout(function ()
+        {
+          window.location.href = response.data.link;
+        }, 1000);
+      }
+      }, 1000);
+    }
+  });
+}
+
+function logoutModal() {
+    $('#logoutModal').modal('show');
+}
+
+function logoutProcess() {
+  var post_url = 'logout';
+  $('#logoutModal').modal('hide');
+  ServerPost(post_url,'',true);
+  localStorage.removeItem('backed');
+}
