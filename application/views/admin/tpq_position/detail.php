@@ -21,9 +21,10 @@
 
 
           <div class="form-group">
-            <label>Ikon</label>
-            <input type="text" class="form-control" value="<?=$records->icon?>" id="icon">
+            <label>Deskripsi</label>
+            <textarea class="form-control" id="desc"><?=$records->description?></textarea>
           </div>
+
 
           <!-- input states -->
 
@@ -31,7 +32,7 @@
         </div>
         <div class="box-footer">
           <input type="hidden" id="edit_id" value="<?=$records->id?>">
-          <a type="submit" class="pull-left btn btn-flat btn-warning" href="<?=base_url().'admin/socmed/'?>"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+          <a type="submit" class="pull-left btn btn-flat btn-warning" href="<?=base_url().'admin/tpq_position/'?>"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
           <button type="submit" class="pull-right btn btn-flat btn-success" onclick="update()"><i class="fa fa-save"></i>&nbsp; Simpan</button>
         </div>
         </div>

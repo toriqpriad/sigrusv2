@@ -143,6 +143,8 @@ class student extends admin
     $father = $this->input->post("father");
     $mother = $this->input->post("mother");
     $date = $this->input->post("date");
+    $active = $this->input->post("active");
+    $status = $this->input->post("status");
     $email = $this->input->post("email");
     $old_foto = $this->input->post("old_foto");
     $link = strtolower(preg_replace("/[^a-zA-Z0-9]/", "", $name));
@@ -160,6 +162,8 @@ class student extends admin
       "link" => $link,
       "student_category" => $student_category,
       "address" => $address,
+      "active" => $active,
+      "status" => $status,
       "update_at" => date('d-m-Y h:m')
     );
     $where = array("where_column" => 'id', "where_value" => $id);
@@ -176,7 +180,7 @@ class student extends admin
         if ($upload_foto->response == OK_STATUS) {
           $image_foto_name = $upload_foto->data[0];
           if ($old_foto != "") {
-            $remove_old = unlink(BACKEND_IMAGE_UPLOAD_FOLDER . $old_foto);
+            $remove_old = unlink(BACKEND_IMAGE_UPLOAD_FOLDER . "/profile/" . $old_foto);
           }
         } else {
           if ($upload_foto->data['error']) {

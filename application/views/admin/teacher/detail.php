@@ -138,10 +138,42 @@
             </div>
 
             <div class="col-md-6">
+
               <div class="form-group">
-                <label>Alamat</label>
-                <textarea class="form-control" rows="3" placeholder="..." id="address"><?=$records->address?></textarea>
+                <label>Keaktifan</label><br>
+                <?php
+                $a = array("value" => 'A', "label" => 'Aktif');
+                $n = array("value" => 'N', "label" => 'Nonaktif');
+                $status = array($a,$n);
+                ?>
+
+                <select class="form-control" id="active">
+                  <?php
+                  foreach($status as $opt){
+                    if($records->active == $opt['value']){
+                      echo "<option value=".$opt['value']." selected>".$opt['label']."</option>";
+                    } else {
+                      echo "<option value=".$opt['value'].">".$opt['label']."</option>";
+                    }
+                  }
+                  ?>
+
+                </select>
               </div>
+
+            </div>
+
+
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Alamat</label>
+                  <textarea class="form-control" rows="3" placeholder="..." id="address"><?=$records->address?></textarea>
+                </div>
+              </div>  
             </div>
           </div>
         </div>

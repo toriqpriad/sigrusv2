@@ -20,8 +20,8 @@
         </div>
 
         <div class="form-group">
-          <label>Icon</label>
-          <input type="text" class="form-control" id="icon">
+          <label>Deskripsi</label>
+          <textarea class="form-contorl" id="desc"></textarea>
         </div>
 
         <!-- input states -->
@@ -29,7 +29,7 @@
         <!-- /.box-body -->
       </div>
       <div class="box-footer">
-        <a type="submit" class="pull-left btn btn-flat btn-warning" href="<?=base_url().'admin/socmed/'?>"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+        <a type="submit" class="pull-left btn btn-flat btn-warning" href="<?=base_url().'admin/tpq_position/'?>"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
         <button type="submit" class="pull-right btn btn-flat btn-success" onclick="post()"><i class="fa fa-save"></i>&nbsp; Simpan</button>
       </div>
       <!-- /.box -->

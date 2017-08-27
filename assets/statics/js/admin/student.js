@@ -25,7 +25,7 @@ function table_render() {
       columnDefs: [
         {
           "render": function (data, type, row) {
-            if (data == 'L') {
+            if (data == 'M') {
               return 'Laki-Laki';
             } else {
               return 'Perempuan';
@@ -104,6 +104,8 @@ function update() {
   var father = $('#father').val();
   var addr = $('#address').val();
   var gender = $('#gender').val();
+  var active = $('#active').val();
+  var status = $('#status').val();
   var place = $('#place_birth').val();
   var date = $('#date_birth').val();
   var old_foto = $('#foto_old').val();
@@ -125,13 +127,15 @@ function update() {
   input.append('date', date);
   input.append('father', father);
   input.append('mother', mother);
+  input.append('active', active);
+  input.append('status', status);
   input.append('student_category', student_category);
   input.append('contact', contact);
   input.append('email', email);
   input.append('foto', foto);
   input.append('old_foto', old_foto);
   var post_url = 'student/update';
-  ServerPost(post_url, input);
+  ServerPost(post_url, input,true);
 }
 
 

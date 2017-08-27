@@ -25,8 +25,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama</th>
-                <th>Icon</th>
+                <th>Nama</th>                
                 <th>Update Terakhir</th>
                 <th>Aksi</th>
               </tr>

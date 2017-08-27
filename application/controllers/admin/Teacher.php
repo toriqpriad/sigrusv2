@@ -20,7 +20,7 @@ class teacher extends admin
     $params->dest_table_as = $dest_table_as;
     $params->select_values = $select_values;
     $params->join_tables = array($join1);
-    $get = $this->data_model->get($params);    
+    $get = $this->data_model->get($params);
     echo json_encode(array("data" => $get['results']));
   }
 
@@ -36,6 +36,112 @@ class teacher extends admin
     $this->data['title_page'] = "Tambah Pengajar";
     $this->data['tpq_options'] = parent::get_tpq_option();
     parent::display('admin/teacher/add', 'admin/teacher/function', false);
+  }
+
+  public function search_page()
+  {
+    $this->data['title_page'] = "Pencarian Pengajar";
+    $this->data['tpq_options'] = parent::get_tpq_option();
+    parent::display('admin/teacher/search', 'admin/teacher/function', true);
+  }
+
+  public function search_submit()
+  {
+    $name = $this->input->post("name");
+    $gender = $this->input->post("gender");
+    $address = $this->input->post("address");
+    $teacher_category = $this->input->post("teacher_category");
+    $tpq = $this->input->post("tpq");
+    $contact = $this->input->post("contact");
+    $place = $this->input->post("place");
+    $date = $this->input->post("date");
+    $email = $this->input->post("email");
+    $active = $this->input->post("active");
+
+    $params = new stdClass();
+    $params->dest_table_as = 'teacher as t';
+    $params->select_values = array('t.*');
+    $where = [];
+    if($name != NULL){
+      $n = array("where_column" => 't.name', "where_value" => $name);
+      array_push($where,$n);
+    }
+
+    if($gender != NULL ){
+      $g = array("where_column" => 't.gender', "where_value" => $gender);
+      array_push($where,$g);
+    }
+
+    if($tpq != NULL ){
+      $t = array("where_column" => 't.id_tpq', "where_value" => $tpq);
+      array_push($where,$t);
+    }
+
+    if($teacher_category != NULL ){
+      $tc = array("where_column" => 't.teacher_category', "where_value" => $teacher_category);
+      array_push($where,$tc);
+    }
+
+    if( $contact != NULL ){
+      $c = array("where_column" => 't.contact', "where_value" => $contact);
+      array_push($where,$c);
+    }
+
+    if($place != NULL ){
+      $p = array("where_column" => 't.place_birth', "where_value" => $place);
+      array_push($where,$p);
+    }
+
+    if( $date != NULL ){
+      $d = array("where_column" => 't.date_birth', "where_value" => $date);
+      array_push($where,$d);
+    }
+
+    if($address != NULL ){
+      $a = array("where_column" => 't.address', "where_value" => $address);
+      array_push($where,$a);
+    }
+
+    if($active != NULL ){
+      $av = array("where_column" => 't.active', "where_value" => $active);
+      array_push($where,$av);
+    }
+
+    $params->where_tables = $where;
+    $join1 = array("join_with" => 'tpq as tp', "join_on" => 't.id_tpq = tp.id', "join_type" => '');
+    $params->join_tables = array($join1);
+    $params->select_values = array('t.*','tp.name as tpq_name','tp.alias as tpq_alias');
+    $get = $this->data_model->get($params);
+    if($get['results'] != ""){
+      foreach($get['results'] as $each){
+        if($each->gender == 'F'){
+          $each->gender = 'Perempuan';
+        } else {
+          $each->gender = 'Laki-Laki';
+        }
+
+        if($each->teacher_category == 'MT'){
+          $each->teacher_category = 'Mubalegh Tugas';
+        } elseif($each->teacher_category == 'MS') {
+          $each->teacher_category = 'Mubalegh Setempat';
+        } else {
+          $each->teacher_category = 'Pribumi';
+        }
+
+        if($each->status == 'M'){
+          $each->status = 'Menikah';
+        } else {
+          $each->status = 'Lajang';
+        }
+
+        if($each->active == 'A'){
+          $each->active = 'Aktif';
+        } else {
+          $each->active = 'Nonaktif';
+        }
+      }
+    }
+    echo json_encode(get_success($get['results']));
   }
 
   public function post()
@@ -143,6 +249,7 @@ class teacher extends admin
     $date = $this->input->post("date");
     $email = $this->input->post("email");
     $old_foto = $this->input->post("old_foto");
+    $active = $this->input->post("active");
     $link = strtolower(preg_replace("/[^a-zA-Z0-9]/", "", $name));
     $params_data = new stdClass();
     $params_data->new_data = array(
@@ -154,6 +261,7 @@ class teacher extends admin
       "place_birth" => $place,
       "date_birth" => $date,
       "link" => $link,
+      "active" => $active,
       "teacher_category" => $teacher_category,
       "address" => $address,
       "update_at" => date('d-m-Y h:m')
@@ -217,7 +325,6 @@ class teacher extends admin
   public function delete()
   {
     $id_delete = $this->input->post("id");
-    // print_r($id);exit();
     $params_delete = new stdClass();
     $where1 = array("where_column" => 'teacher_id', "where_value" => $id_delete);
     $params_delete->where_tables = array($where1);

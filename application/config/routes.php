@@ -45,6 +45,8 @@ $route['admin/teacher/add'] = 'admin/teacher/add';
 $route['admin/teacher/post'] = 'admin/teacher/post';
 $route['admin/teacher/update'] = 'admin/teacher/update';
 $route['admin/teacher/delete'] = 'admin/teacher/delete';
+$route['admin/teacher/search_page'] = 'admin/teacher/search_page';
+$route['admin/teacher/search_submit'] = 'admin/teacher/search_submit';
 $route['admin/teacher/(:any)'] = 'admin/teacher/detail';
 
 //ADMIN student
@@ -55,6 +57,23 @@ $route['admin/student/post'] = 'admin/student/post';
 $route['admin/student/update'] = 'admin/student/update';
 $route['admin/student/delete'] = 'admin/student/delete';
 $route['admin/student/(:any)'] = 'admin/student/detail';
+
+//socmed
+$route['admin/socmed'] = 'admin/socmed/index';
+$route['admin/socmed/json'] = 'admin/socmed/json';
+$route['admin/socmed/add'] = 'admin/socmed/add';
+$route['admin/socmed/post'] = 'admin/socmed/post';
+$route['admin/socmed/update'] = 'admin/socmed/update';
+$route['admin/socmed/delete'] = 'admin/socmed/delete';
+$route['admin/socmed/(:any)'] = 'admin/socmed/detail';
+
+$route['admin/tpq_position'] = 'admin/tpq_position/index';
+$route['admin/tpq_position/json'] = 'admin/tpq_position/json';
+$route['admin/tpq_position/add'] = 'admin/tpq_position/add';
+$route['admin/tpq_position/post'] = 'admin/tpq_position/post';
+$route['admin/tpq_position/update'] = 'admin/tpq_position/update';
+$route['admin/tpq_position/delete'] = 'admin/tpq_position/delete';
+$route['admin/tpq_position/(:any)'] = 'admin/tpq_position/detail';
 
 //setting
 $route['admin/setting'] = 'admin/setting/index';

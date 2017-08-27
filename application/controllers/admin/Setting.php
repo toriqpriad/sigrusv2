@@ -25,7 +25,7 @@ class setting extends admin {
     $param = new stdClass();
     $param->dest_table_as = $dest;
     $param->select_values = $select;
-    $where = array("where_column" => 'u.role', "where_value" => 'A');
+    $where = array("where_column" => 'u.level', "where_value" => 'A');
     $param->where_tables = array($where);
     $akun = $this->data_model->get($param);
     if ($get['results'] != "") {
@@ -35,7 +35,7 @@ class setting extends admin {
       $logo_dir =  $dir.$logo;
       $check_thumb = check_if_empty($logo, $logo_dir);
       if($check_thumb == NO_IMG_NAME){
-        $get["results"][0]->logo = BASE_URL.BACKEND_IMAGE_UPLOAD_FOLDER.'noimg.png';
+        $get["results"][0]->logo = BASE_URL.BACKEND_IMAGE_UPLOAD_FOLDER.'dummy_logo.png';
       } else {
         $get["results"][0]->logo = BASE_URL . $dir.$check_thumb;
       }
@@ -86,6 +86,8 @@ class setting extends admin {
     $addr = $this->input->post("addr");
     $contact = $this->input->post("contact");
     $email = $this->input->post("email");
+    $channel = $this->input->post("channel");
+    $api_key = $this->input->post("key");
     $old_logo = $this->input->post("logo_old");
     $socmed_data = $this->input->post("socmed_data");
     $error = [];
@@ -119,9 +121,11 @@ class setting extends admin {
         "site_description" => $desc,
         "site_address" => $addr,
         "site_email" => $email,
+        "site_video_id_channel" => $channel,
+        "site_video_api_key" => $api_key,
         "site_contact" => $contact,
         "site_logo" => $image_name,
-        "update_at" => date('d-m-Y hh:mm')
+        "update_at" => date('d-m-Y h:m')
       );
     } else {
       $params_data->new_data = array(
@@ -129,9 +133,11 @@ class setting extends admin {
         "site_moto" => $moto,
         "site_description" => $desc,
         "site_address" => $addr,
+        "site_video_id_channel" => $channel,
+        "site_video_api_key" => $api_key,
         "site_email" => $email,
         "site_contact" => $contact,
-        "update_at" => date('d-m-Y hh:mm')
+        "update_at" => date(' d-m-Y h:m')
       );
     }
     $where = array("where_column" => 'id', "where_value" => $id);
@@ -144,7 +150,7 @@ class setting extends admin {
     $params_account->new_data = array(
       "username" => $uname,
     );
-    $where = array("where_column" => 'role', "where_value" => 'A');
+    $where = array("where_column" => 'level', "where_value" => 'A');
     $params_account->where_tables = array($where);
     $params_account->table_update = 'user';
     $update_account = $this->data_model->update($params_account);
@@ -155,7 +161,7 @@ class setting extends admin {
         if(!empty($decode_socmed_data)){
           $params_delete = new stdClass();
           $params_delete->table = 'site_socmed';
-          $where_data = array("where_column" => 'role', "where_value" => 'A');
+          $where_data = array("where_column" => 'level', "where_value" => 'A');
           $params_delete->where_tables = array($where_data);
           $delete = $this->data_model->delete($params_delete);
         }
@@ -164,7 +170,7 @@ class setting extends admin {
 
           $new_data = array(
             "socmed_id" => $data->sc_id,
-            "role" => 'A',
+            "level" => 'A',
             "url" => $data->sc_value,
             "update_at" => date('d-m-Y h:m')
           );
@@ -200,7 +206,7 @@ class setting extends admin {
     $params = new stdClass();
     $params->dest_table_as = $dest_table_as;
     $params->select_values = $select_values;
-    $where1 = array("where_column" => 'u.role', "where_value" => "A");
+    $where1 = array("where_column" => 'u.level', "where_value" => "A");
     $params->where_tables = array($where1);
     $get = $this->data_model->get($params);
     if ($get['response'] == OK_STATUS) {
@@ -209,7 +215,7 @@ class setting extends admin {
       } else {
         $params_data = new stdClass();
         $params_data->new_data = array("password" => $new_pass);
-        $where = array("where_column" => 'role', "where_value" => "A");
+        $where = array("where_column" => 'level', "where_value" => "A");
         $params_data->where_tables = array($where);
         $params_data->table_update = 'user';
         $update = $this->data_model->update($params_data);
