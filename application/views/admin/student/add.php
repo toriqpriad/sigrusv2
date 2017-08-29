@@ -66,8 +66,8 @@
             <div class="form-group">
               <label>Status</label><br>
               <select class="form-control" id="status">
-                <option value="L">Lajang</option>
-                <option value="P">Menikah</option>
+                <option value="S">Lajang</option>
+                <option value="M">Menikah</option>
               </select>
             </div>
 

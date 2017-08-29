@@ -178,6 +178,39 @@
 
           <div class="row">
             <div class="col-md-6">
+              <div class="form-group">
+                <label>Pendidikan Terakhir</label><br>
+                <?php
+                $sd = array("value" => 'SD', "label" => 'SD');
+                $smp = array("value" => 'SMP', "label" => 'SMP');
+                $sma = array("value" => 'SMA', "label" => 'SMA');
+                $diploma = array("value" => 'Diploma', "label" => 'Diploma');
+                $sarjana = array("value" => 'Sarjana', "label" => 'Sarjana');
+                $pdk = array($sd,$smp,$sma,$diploma,$sarjana);
+                ?>
+                <select class="form-control" id="education">
+                  <?php
+                  foreach($pdk as $opt){
+                    if($records->education == $opt['value']){
+                      echo "<option value=".$opt['value']." selected>".$opt['label']."</option>";
+                    } else {
+                      echo "<option value=".$opt['value'].">".$opt['label']."</option>";
+                    }
+                  }
+                  ?>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Keterangan Pendidikan</label>
+                <input type="text" class="form-control" placeholder="..." id="education_detail" value="<?=$records->education_detail?>">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
 
               <div class="form-group">
                 <label>Kontak</label>

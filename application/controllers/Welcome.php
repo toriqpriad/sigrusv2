@@ -30,7 +30,8 @@ class Welcome extends CI_Controller {
     }
 
     public function not_found() {
-        redirect('not_found');
+        // $this->load->view('404');
+        print_r('not found');
     }
 
 }

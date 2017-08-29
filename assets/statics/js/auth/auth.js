@@ -18,9 +18,7 @@ function ServerPost(next_url,input,reload_action) {
           $.notify({
             message: '<i class="fa fa-check"></i> ' + response.message,
           }, {type: 'success'})
-
           localStorage.setItem('backend_url', response.data.backend_url);
-
         } else {
           $.notify({
             message: '<i class="fa fa-genderless"></i> ' + response.message,
@@ -50,5 +48,4 @@ function login() {
   input.append('username', username);
   input.append('password', password);
   ServerPost(post_url,input,true);
-
 }

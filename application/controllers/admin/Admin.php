@@ -23,6 +23,12 @@ class admin extends CI_Controller
     $this->checkauth();
   }
 
+  public function logout() {
+    $delete_session = $this->session->sess_destroy();
+    $data = array('link' => base_url().'login');
+    echo json_encode(get_success($data));
+  }
+
   public function display($location, $function_location = null, $table = null)
   {
     $this->data ['menu'] = $this->menu();
@@ -46,17 +52,17 @@ class admin extends CI_Controller
 
   public function checkauth()
   {
-    if ($this->session->userdata('web_token') == "") {
-      redirect('admin/login');
+    if ($this->session->userdata('admin_token') == "") {
+      redirect('login');
       exit();
     } else {
-      $decode = JWT::decode($this->session->userdata('web_token'), SERVER_SECRET_KEY, JWT_ALGHORITMA);
+      $decode = JWT::decode($this->session->userdata('admin_token'), SERVER_SECRET_KEY, JWT_ALGHORITMA);
       if ($decode->response != OK_STATUS) {
-        redirect('admin/login');
+        redirect('login');
         exit();
       } else {
         if ($decode->data->role != "A") {
-          redirect('admin/login');
+          redirect('login');
           exit();
         }
       }

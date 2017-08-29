@@ -87,12 +87,13 @@ function update() {
   } else {
     var cover = 'old';
   }
-  
+
   var position_data = [];
   $(".position_data").each(function() {
     var position_value = {"position_id":  $(this).attr('id'), "position_person" : $(this).val()};
     position_data.push(position_value);
   });
+
   var input = new FormData();
   input.append('id', id);
   input.append('name', name);

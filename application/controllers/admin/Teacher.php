@@ -53,6 +53,11 @@ class teacher extends admin
     $teacher_category = $this->input->post("teacher_category");
     $tpq = $this->input->post("tpq");
     $contact = $this->input->post("contact");
+    $gender = $this->input->post("gender");
+    $address = $this->input->post("address");
+    $education = $this->input->post("education");
+    $education_detail = $this->input->post("education_detail");
+    $status = $this->input->post("status");
     $place = $this->input->post("place");
     $date = $this->input->post("date");
     $email = $this->input->post("email");
@@ -62,14 +67,15 @@ class teacher extends admin
     $params->dest_table_as = 'teacher as t';
     $params->select_values = array('t.*');
     $where = [];
+    $where_like = [];
     if($name != NULL){
       $n = array("where_column" => 't.name', "where_value" => $name);
-      array_push($where,$n);
+      array_push($where_like,$n);
     }
 
     if($gender != NULL ){
       $g = array("where_column" => 't.gender', "where_value" => $gender);
-      array_push($where,$g);
+      array_push($where_like,$g);
     }
 
     if($tpq != NULL ){
@@ -79,41 +85,63 @@ class teacher extends admin
 
     if($teacher_category != NULL ){
       $tc = array("where_column" => 't.teacher_category', "where_value" => $teacher_category);
-      array_push($where,$tc);
+      array_push($where_like,$tc);
+    }
+
+    if( $education != NULL ){
+      $ed = array("where_column" => 't.education', "where_value" => $education);
+      array_push($where_like,$ed);
+    }
+
+    if( $education_detail != NULL ){
+      $edc = array("where_column" => 't.education_detail', "where_value" => $education_detail);
+      array_push($where_like,$edc);
     }
 
     if( $contact != NULL ){
       $c = array("where_column" => 't.contact', "where_value" => $contact);
-      array_push($where,$c);
+      array_push($where_like,$c);
     }
 
     if($place != NULL ){
       $p = array("where_column" => 't.place_birth', "where_value" => $place);
-      array_push($where,$p);
+      array_push($where_like,$p);
     }
 
     if( $date != NULL ){
       $d = array("where_column" => 't.date_birth', "where_value" => $date);
-      array_push($where,$d);
+      array_push($where_like,$d);
     }
 
     if($address != NULL ){
       $a = array("where_column" => 't.address', "where_value" => $address);
-      array_push($where,$a);
+      array_push($where_like,$a);
     }
 
     if($active != NULL ){
       $av = array("where_column" => 't.active', "where_value" => $active);
-      array_push($where,$av);
+      array_push($where_like,$av);
     }
 
+    if($status != NULL ){
+      $st = array("where_column" => 't.status', "where_value" => $status);
+      array_push($where,$st);
+    }
+
+
     $params->where_tables = $where;
+    $params->where_tables_like = $where_like;
     $join1 = array("join_with" => 'tpq as tp', "join_on" => 't.id_tpq = tp.id', "join_type" => '');
     $params->join_tables = array($join1);
     $params->select_values = array('t.*','tp.name as tpq_name','tp.alias as tpq_alias');
     $get = $this->data_model->get($params);
     if($get['results'] != ""){
       foreach($get['results'] as $each){
+        if($each->date_birth != ""){
+          $age = date_diff( date_create($each->date_birth), date_create() );
+          $each->age = $age->y;
+        }
+
         if($each->gender == 'F'){
           $each->gender = 'Perempuan';
         } else {
@@ -247,9 +275,12 @@ class teacher extends admin
     $contact = $this->input->post("contact");
     $place = $this->input->post("place");
     $date = $this->input->post("date");
+    $education = $this->input->post("education");
+    $education_detail = $this->input->post("education_detail");
     $email = $this->input->post("email");
     $old_foto = $this->input->post("old_foto");
     $active = $this->input->post("active");
+    $status = $this->input->post("status");
     $link = strtolower(preg_replace("/[^a-zA-Z0-9]/", "", $name));
     $params_data = new stdClass();
     $params_data->new_data = array(
@@ -261,7 +292,10 @@ class teacher extends admin
       "place_birth" => $place,
       "date_birth" => $date,
       "link" => $link,
+      "education" => $education,
+      "education_detail" => $education_detail,
       "active" => $active,
+      "status" => $status,
       "teacher_category" => $teacher_category,
       "address" => $address,
       "update_at" => date('d-m-Y h:m')

@@ -72,9 +72,12 @@ function search(){
   var teacher_category = $('#teacher_category').val();
   var contact = $('#contact').val();
   var email = $('#email').val();
+  var education = $('#education').val();
+  var education_detail = $('#education_detail').val();
   var addr = $('#address').val();
   var gender = $('#gender').val();
   var active = $('#active').val();
+  var status = $('#status').val();
   var place = $('#place_birth').val();
   var date = $('#date_birth').val();
 
@@ -85,7 +88,10 @@ function search(){
   input.append('place', place);
   input.append('date', date);
   input.append('teacher_category', teacher_category);
+  input.append('education', education);
+  input.append('education_detail', education_detail);
   input.append('contact', contact);
+  input.append('status', status);
   input.append('email', email);
   input.append('active', active);
   console.log(url + '/teacher/search_submit');
@@ -111,9 +117,9 @@ function search(){
               "<td>"+item.gender+"</td>"+
               "<td>"+item.teacher_category+"</td>"+
               "<td>"+item.tpq_name+" ( "+item.tpq_alias+" )"+"</td>"+
-              "<td>"+item.place_birth+','+item.date_birth+"</td>"+
+              "<td>"+item.place_birth+','+item.date_birth+" ("+item.age+")"+"</td>"+
               "<td>"+item.status+"</td>"+
-              "<td></td>"+
+              "<td>"+item.education+' - '+item.education_detail+"</td>"+
               "<td>"+item.address+"</td>"+
               "<td>"+item.email+"</td>"+
               "<td>"+item.contact+"</td>"+
@@ -182,6 +188,9 @@ function search(){
       var gender = $('#gender').val();
       var active = $('#active').val();
       var place = $('#place_birth').val();
+      var status = $('#status').val();
+      var education = $('#education').val();
+      var education_detail = $('#education_detail').val();
       var date = $('#date_birth').val();
       var old_foto = $('#foto_old').val();
       var new_foto = $('#foto_new').val();
@@ -203,11 +212,14 @@ function search(){
       input.append('teacher_category', teacher_category);
       input.append('contact', contact);
       input.append('email', email);
+      input.append('education', education);
+      input.append('education_detail', education_detail);
       input.append('foto', foto);
       input.append('active', active);
+      input.append('status', status);
       input.append('old_foto', old_foto);
       var post_url = 'teacher/update';
-      ServerPost(post_url, input,);
+      ServerPost(post_url, input,true);
     }
 
 

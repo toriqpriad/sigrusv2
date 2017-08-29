@@ -5,11 +5,11 @@ class data_model extends CI_Model {
     public function get($params) {
 
         /* This Function Parameter
-          $params = new stdClass();
-          $params->dest_table_as = 'table_name';
-          $params->select_values = array();
-          $params->join_tables = array();
-         */
+        $params = new stdClass();
+        $params->dest_table_as = 'table_name';
+        $params->select_values = array();
+        $params->join_tables = array();
+        */
         //  print_r($params->pagination);
         if (isset($params->select_values)) {
             $select_values = $params->select_values;
@@ -87,8 +87,8 @@ class data_model extends CI_Model {
         }
 
         if ((isset($pagination))) {
-          //offset => how many datas allowed to get
-          //start => start on array n
+            //offset => how many datas allowed to get
+            //start => start on array n
             $pagination = $this->db->limit($pagination['offset'],$pagination['start']);
         }
 
@@ -108,10 +108,10 @@ class data_model extends CI_Model {
     public function add($params, $dest_table) {
 
         /*
-          This Function Parameter
-          $params = array() for insert;
-          $dest_table_as = 'table_name' for insert;
-         */
+        This Function Parameter
+        $params = array() for insert;
+        $dest_table_as = 'table_name' for insert;
+        */
 
         $query = $this->db->insert($dest_table, $params);
         if ($query == TRUE) {
@@ -128,10 +128,10 @@ class data_model extends CI_Model {
     public function update($params) {
 
         /*
-          This Function Parameter
-          $params = array() for update;
-          $dest_table_as = 'table_name' for update;
-         */
+        This Function Parameter
+        $params = array() for update;
+        $dest_table_as = 'table_name' for update;
+        */
 
         $query = $this->db->set($params->new_data);
         foreach ($params->where_tables as $each_where) {
@@ -170,21 +170,21 @@ class data_model extends CI_Model {
     }
 
     public function get_count($table,$where = NULL){
-      if ((isset($where)) OR $where != "") {
-          foreach ($where as $each_where) {
-              $where = $this->db->where($each_where['where_column'], $each_where['where_value']);
-          }
-      }
-      $query = $this->db->count_all_results($table);
-      if ($query == TRUE) {
-          $response = OK_STATUS;
-          $data = array("response" => $response, "results" => $query);
-      } else {
-          $response = FAIL_STATUS;
-          // $data = array("response" => $response,"log" => $this->db->last_query());
-          $data = array("response" => $response , "results" => $query);
-      }
-      return $data;
+        if ((isset($where)) OR $where != "") {
+            foreach ($where as $each_where) {
+                $where = $this->db->where($each_where['where_column'], $each_where['where_value']);
+            }
+        }
+        $query = $this->db->count_all_results($table);
+        if ($query == TRUE) {
+            $response = OK_STATUS;
+            $data = array("response" => $response, "results" => $query);
+        } else {
+            $response = FAIL_STATUS;
+            // $data = array("response" => $response,"log" => $this->db->last_query());
+            $data = array("response" => $response , "results" => $query);
+        }
+        return $data;
     }
 
 }

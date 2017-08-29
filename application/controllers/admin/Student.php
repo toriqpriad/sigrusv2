@@ -21,6 +21,17 @@ class student extends admin
     $params->select_values = $select_values;
     $params->join_tables = array($join1);
     $get = $this->data_model->get($params);
+    if($get['results'] != ''){
+      foreach($get['results'] as $each){
+        if($each->student_category == 'C'){
+          $each->student_category = 'Caberawit';
+        } elseif($each->student_category == 'P'){
+          $each->student_category = 'Praremaja';
+        } else {
+          $each->student_category = 'Remaja';
+        }
+      }
+    }
     echo json_encode(array("data" => $get['results']));
   }
 
@@ -29,6 +40,13 @@ class student extends admin
   {
     $this->data['title_page'] = "Siswa";
     parent::display('admin/student/index', 'admin/student/function', true);
+  }
+
+  public function search_page()
+  {
+    $this->data['title_page'] = "Pencarian Siswa";
+    $this->data['tpq_options'] = parent::get_tpq_option();
+    parent::display('admin/student/search', 'admin/student/function', true);
   }
 
   public function add()
@@ -142,6 +160,8 @@ class student extends admin
     $place = $this->input->post("place");
     $father = $this->input->post("father");
     $mother = $this->input->post("mother");
+    $education = $this->input->post("education");
+    $education_detail = $this->input->post("education_detail");
     $date = $this->input->post("date");
     $active = $this->input->post("active");
     $status = $this->input->post("status");
@@ -157,6 +177,8 @@ class student extends admin
       "email" => $email,
       "father" => $father,
       "mother" => $mother,
+      "education" => $education,
+      "education_detail" => $education_detail,
       "place_birth" => $place,
       "date_birth" => $date,
       "link" => $link,
@@ -224,6 +246,142 @@ class student extends admin
     echo json_encode($result);
   }
 
+
+  public function search_submit()
+  {
+    $name = $this->input->post("name");
+    $gender = $this->input->post("gender");
+    $address = $this->input->post("address");
+    $student_category = $this->input->post("student_category");
+    $tpq = $this->input->post("tpq");
+    $contact = $this->input->post("contact");
+    $gender = $this->input->post("gender");
+    $address = $this->input->post("address");
+    $education = $this->input->post("education");
+    $education_detail = $this->input->post("education_detail");
+    $place = $this->input->post("place");
+    $date = $this->input->post("date");
+    $email = $this->input->post("email");
+    $status = $this->input->post("status");
+    $father = $this->input->post("father");
+    $mother = $this->input->post("mother");
+    $active = $this->input->post("active");
+
+    $params = new stdClass();
+    $params->dest_table_as = 'student as t';
+    $params->select_values = array('t.*');
+    $where = [];
+    $where_like = [];
+    if($name != NULL){
+      $n = array("where_column" => 't.name', "where_value" => $name);
+      array_push($where_like,$n);
+    }
+
+    if($gender != NULL ){
+      $g = array("where_column" => 't.gender', "where_value" => $gender);
+      array_push($where_like,$g);
+    }
+
+    if($tpq != NULL ){
+      $t = array("where_column" => 't.id_tpq', "where_value" => $tpq);
+      array_push($where,$t);
+    }
+
+    if($student_category != NULL ){
+      $tc = array("where_column" => 't.student_category', "where_value" => $student_category);
+      array_push($where_like,$tc);
+    }
+
+    if( $education != NULL ){
+      $ed = array("where_column" => 't.education', "where_value" => $education);
+      array_push($where_like,$ed);
+    }
+
+    if( $education_detail != NULL ){
+      $edc = array("where_column" => 't.education_detail', "where_value" => $education_detail);
+      array_push($where_like,$edc);
+    }
+
+    if( $contact != NULL ){
+      $c = array("where_column" => 't.contact', "where_value" => $contact);
+      array_push($where_like,$c);
+    }
+
+    if($place != NULL ){
+      $p = array("where_column" => 't.place_birth', "where_value" => $place);
+      array_push($where_like,$p);
+    }
+
+    if( $date != NULL ){
+      $d = array("where_column" => 't.date_birth', "where_value" => $date);
+      array_push($where_like,$d);
+    }
+
+    if( $father != NULL ){
+      $fa = array("where_column" => 't.father', "where_value" => $father);
+      array_push($where_like,$fa);
+    }
+
+    if( $mother != NULL ){
+      $mo = array("where_column" => 't.mother', "where_value" => $mother);
+      array_push($where_like,$mo);
+    }
+
+    if($address != NULL ){
+      $a = array("where_column" => 't.address', "where_value" => $address);
+      array_push($where_like,$a);
+    }
+
+    if($active != NULL ){
+      $av = array("where_column" => 't.active', "where_value" => $active);
+      array_push($where_like,$av);
+    }
+    if($status != NULL ){
+      $st = array("where_column" => 't.status', "where_value" => $status);
+      array_push($where,$st);
+    }
+    $params->where_tables = $where;
+    $params->where_tables_like = $where_like;
+    $join1 = array("join_with" => 'tpq as tp', "join_on" => 't.id_tpq = tp.id', "join_type" => '');
+    $params->join_tables = array($join1);
+    $params->select_values = array('t.*','tp.name as tpq_name','tp.alias as tpq_alias');
+    $get = $this->data_model->get($params);
+    if($get['results'] != ""){
+      foreach($get['results'] as $each){
+        if($each->date_birth != ""){
+          $age = date_diff( date_create($each->date_birth), date_create() );
+          $each->age = $age->y;
+        }
+
+        if($each->gender == 'F'){
+          $each->gender = 'Perempuan';
+        } else {
+          $each->gender = 'Laki-Laki';
+        }
+
+        if($each->student_category == 'C'){
+          $each->student_category = 'Caberawit';
+        } elseif($each->student_category == 'P') {
+          $each->student_category = 'Praremaja';
+        } else {
+          $each->student_category = 'Remaja';
+        }
+
+        if($each->status == 'M'){
+          $each->status = 'Menikah';
+        } else {
+          $each->status = 'Lajang';
+        }
+
+        if($each->active == 'A'){
+          $each->active = 'Aktif';
+        } else {
+          $each->active = 'Nonaktif';
+        }
+      }
+    }
+    echo json_encode(get_success($get['results']));
+  }
 
   public function delete()
   {

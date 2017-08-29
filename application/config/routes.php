@@ -9,14 +9,14 @@ $route['translate_uri_dashes'] = FALSE;
 //AUTH
 $route['checkwebtoken'] = 'authentication/authentication/checkwebtoken';
 $route['auth/submit_login'] = 'authentication/authentication/submit_login';
-$route['admin/logout'] = 'authentication/authentication/logout';
+// $route['admin/logout'] = 'authentication/authentication/logout';
 $route['login'] = 'authentication/authentication/login';
-$route['logout'] = 'authentication/authentication/logout';
+$route['admin/logout'] = 'admin/admin/logout';
 
 //DASHBOARD
 $route['admin'] = 'admin/admin/dashboard';
 $route['admin/dashboard'] = 'admin/admin/dashboard';
-$route['admin/login'] = 'authentication/authentication/admin_login';
+$route['admin/login'] = 'authentication/authentication/login';
 $route['admin/404'] = 'admin/admin/notfound';
 
 // ADMIN PC
@@ -56,6 +56,8 @@ $route['admin/student/add'] = 'admin/student/add';
 $route['admin/student/post'] = 'admin/student/post';
 $route['admin/student/update'] = 'admin/student/update';
 $route['admin/student/delete'] = 'admin/student/delete';
+$route['admin/student/search_page'] = 'admin/student/search_page';
+$route['admin/student/search_submit'] = 'admin/student/search_submit';
 $route['admin/student/(:any)'] = 'admin/student/detail';
 
 //socmed
@@ -85,31 +87,46 @@ $route['notfound'] = 'front/front/notfound';
 $route['home'] = 'front/front/home';
 
 //front category
-$route['category'] = 'front/category/all_category';
-$route['category/(:any)'] = 'front/category/category';
-$route['category/(:any)/(:any)'] = 'front/category/category';
-
-//fornt merchant
-$route['merchant'] = 'front/merchant/all_merchant';
-$route['merchant/register'] = 'front/merchant/register';
-$route['merchant/register_submit'] = 'front/merchant/register_submit';
-$route['merchant/(:any)'] = 'front/merchant/all_merchant';
-$route['merchant/detail/(:any)'] = 'front/merchant/detail';
-$route['merchant/detail/(:any)/(:any)'] = 'front/merchant/detail';
-
-//front product
-$route['product'] = 'front/product/all_product';
-$route['product/detail/(:any)'] = 'front/product/detail';
-$route['product/(:any)'] = 'front/product/all_product';
-
-//FRONT GAllery
-$route['gallery/(:any)'] = 'front/gallery/all_gallery';
-$route['gallery'] = 'front/gallery/all_gallery';
-
-//front info
 $route['about_us'] = 'front/info/about_us';
-$route['not_found'] = 'front/info/not_found';
+$route['not_found'] = 'welcome/not_found';
 $route['search'] = 'front/info/search';
 // $route['category/(:any)/(:any)'] = 'front/front/merchant';
 
 // $route['home2'] = 'front/front/home';
+
+// TPQ ROLE
+$route['tpq/logout'] = 'tpq/tpq/logout';
+$route['tpq'] = 'tpq/tpq/dashboard';
+$route['tpq/dashboard'] = 'tpq/tpq/dashboard';
+$route['tpq/login'] = 'authentication/authentication/login';
+$route['tpq/404'] = 'tpq/tpq/notfound';
+
+$route['tpq/teacher'] = 'tpq/teacher/index';
+$route['tpq/teacher/json'] = 'tpq/teacher/json';
+$route['tpq/teacher/add'] = 'tpq/teacher/add';
+$route['tpq/teacher/post'] = 'tpq/teacher/post';
+$route['tpq/teacher/update'] = 'tpq/teacher/update';
+$route['tpq/teacher/delete'] = 'tpq/teacher/delete';
+$route['tpq/teacher/search_page'] = 'tpq/teacher/search_page';
+$route['tpq/teacher/search_submit'] = 'tpq/teacher/search_submit';
+$route['tpq/teacher/(:any)'] = 'tpq/teacher/detail';
+
+//tpq student
+$route['tpq/student'] = 'tpq/student/index';
+$route['tpq/student/json'] = 'tpq/student/json';
+$route['tpq/student/add'] = 'tpq/student/add';
+$route['tpq/student/post'] = 'tpq/student/post';
+$route['tpq/student/update'] = 'tpq/student/update';
+$route['tpq/student/delete'] = 'tpq/student/delete';
+$route['tpq/student/search_page'] = 'tpq/student/search_page';
+$route['tpq/student/search_submit'] = 'tpq/student/search_submit';
+$route['tpq/student/(:any)'] = 'tpq/student/detail';
+
+//TPQ position
+$route['tpq/position'] = 'tpq/position/detail';
+$route['tpq/position/update'] = 'tpq/position/update';
+
+//TPQ setting$route['admin/setting'] = 'admin/setting/index';
+$route['tpq/setting'] = 'tpq/setting/detail';
+$route['tpq/setting/update'] = 'tpq/setting/update';
+$route['tpq/setting/change_password'] = 'tpq/setting/change_password';
