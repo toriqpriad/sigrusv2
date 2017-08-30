@@ -11,6 +11,18 @@ class tpq extends admin
         $this->data['active_page'] = "tpq";
     }
 
+    public function get_login_data($tpq_id){
+      $parameter = $tpq_id;
+      $params = new stdClass();
+      $params->dest_table_as = 'user as u';
+      $params->select_values = array('u.username');
+      $where1 = array("where_column" => 'u.id_level', "where_value" => $parameter);
+      $where2 = array("where_column" => 'u.level', "where_value" => 'T');
+      $params->where_tables = array($where1,$where2);
+      $get = $this->data_model->get($params);
+      return $get['results'][0];
+    }
+
     public function json()
     {
         $dest_table_as = 'tpq as t';
@@ -73,13 +85,6 @@ class tpq extends admin
         $dest_table = 'tpq';
         $add = $this->data_model->add($params_data, $dest_table);
         $tpq_id = $add["data"];
-        // $tpq_dir = BACKEND_IMAGE_UPLOAD_FOLDER.'tpq/'.$tpq_id;
-        // $create_dir = mkdir($tpq_dir);
-        // $create_logo_dir = mkdir($tpq_dir . "/logo",0777, true);
-        // $create_cover_dir = mkdir($tpq_dir. "/cover",0777, true);
-        // $create_student_dir = mkdir($tpq_dir. "/student",0777, true);
-        // $create_teacher_dir = mkdir($tpq_dir. "/teacher",0777, true);
-
         if (isset($_FILES["logo"])) {
             if ($_FILES["logo"] != "") {
                 $upload_logo = image_upload(array($_FILES["logo"]), BACKEND_IMAGE_UPLOAD_FOLDER . "/logo/");
@@ -174,7 +179,8 @@ class tpq extends admin
             $params_pgrs->where_tables = array($where1);
             $params_pgrs->or_where_tables = array($where2);
             $get_pgrs = $this->data_model->get($params_pgrs);
-
+            $login_data = $this->get_login_data($parameter);
+            $get['results'][0]->username = $login_data->username;
             $this->data['records'] = $get['results'][0];
             $this->data['position'] = $get_pgrs['results'];
             $this->data['title_page'] = $get["results"][0]->name;

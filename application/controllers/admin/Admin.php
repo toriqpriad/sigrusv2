@@ -5,20 +5,8 @@ class admin extends CI_Controller
   {
     parent::__construct();
     $this->load->model('data_model');
-    $this->load->library(array(
-      'curl',
-      'session',
-      'datatables'
-    ));
-    $this->load->helper(array(
-      'form',
-      'url',
-      'jwt_helper',
-      'rest_response_helper',
-      'key_helper',
-      'image_process_helper',
-      'file'
-    ));
+    $this->load->library(array('curl','session','datatables'));
+    $this->load->helper(array('form','url','jwt_helper','rest_response_helper','key_helper','image_process_helper','file'));
     $this->data = [ ];
     $this->checkauth();
   }

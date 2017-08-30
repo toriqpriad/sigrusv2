@@ -100,7 +100,6 @@ $route['tpq'] = 'tpq/tpq/dashboard';
 $route['tpq/dashboard'] = 'tpq/tpq/dashboard';
 $route['tpq/login'] = 'authentication/authentication/login';
 $route['tpq/404'] = 'tpq/tpq/notfound';
-
 $route['tpq/teacher'] = 'tpq/teacher/index';
 $route['tpq/teacher/json'] = 'tpq/teacher/json';
 $route['tpq/teacher/add'] = 'tpq/teacher/add';
@@ -110,7 +109,6 @@ $route['tpq/teacher/delete'] = 'tpq/teacher/delete';
 $route['tpq/teacher/search_page'] = 'tpq/teacher/search_page';
 $route['tpq/teacher/search_submit'] = 'tpq/teacher/search_submit';
 $route['tpq/teacher/(:any)'] = 'tpq/teacher/detail';
-
 //tpq student
 $route['tpq/student'] = 'tpq/student/index';
 $route['tpq/student/json'] = 'tpq/student/json';

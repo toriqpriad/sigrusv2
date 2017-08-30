@@ -23,8 +23,8 @@
       <div class="tab-content">
         <div class="tab-pane" id="akun">
           <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" value="<?=$records->email?>" id="email">
+            <label>Username</label>
+            <input type="text" class="form-control" value="<?=$records->email?>" id="username">
           </div>
           <div class="form-group">
             <label>Password</label><br>

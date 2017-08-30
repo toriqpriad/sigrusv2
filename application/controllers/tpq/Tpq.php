@@ -97,17 +97,9 @@ class tpq extends CI_Controller
     $tpq_position = array(
       "label" => "Pengurus TPQ",
       "link" => site_url() . 'tpq/position/',
-      "page_name" => "tpq_position",
+      "page_name" => "position",
       "icon" => "fa fa-cubes 1x"
     );
-
-    $socmed = array (
-      "label" => "Sosial Media",
-      "link" => site_url () . 'tpq/socmed/',
-      "page_name" => "socmed",
-      "icon" => "fa fa-share-alt 1x"
-    );
-
 
     $setting = array(
       "label" => "Pengaturan",
@@ -116,7 +108,7 @@ class tpq extends CI_Controller
       "icon" => "fa fa-cog 1x"
     );
 
-    $array = [$dashboard,$teacher,$student,$tpq_position ,$socmed,$setting];
+    $array = [$dashboard,$teacher,$student,$tpq_position,$setting];
     return $array;
   }
 
