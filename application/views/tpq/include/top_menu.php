@@ -23,7 +23,7 @@
         <ul class="nav navbar-nav">
 
           <li><a style="margin-top:-3px; text-transform: uppercase;" href=""><b>
-             PPG KOTA WISATA BATU <i class="fa fa-genderless"></i> TPQ <?= $tpq_data['name'].' - '. $tpq_data['alias'];?>
+             PPG KOTA WISATA BATU &nbsp; <i class="fa fa-genderless"></i>&nbsp; TPQ <?= $tpq_data['name'].' - '. $tpq_data['alias'];?>
           </b></a></li>
           <li>
             <a href="#" onclick="logoutModal()" ><i class="fa fa-sign-out"></i></a>

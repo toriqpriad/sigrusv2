@@ -11,10 +11,9 @@ function table_render() {
         { data: null },
         { data: 'name' },
         { data: 'gender' },
-        { data: 'tpq_name'},
-        { data: 'tpq_alias'},
         { data: 'student_category'},
         { data: 'contact' },
+        { data: 'status' },
         { data: 'active' },
         { data: 'update_at' },
         { data: 'id' },
@@ -36,19 +35,29 @@ function table_render() {
         },
         {
           "render": function (data, type, row) {
+            if (data == 'S') {
+              return '<span class="text-danger">Lajang</span>';
+            } else {
+              return '<span class="text-success">Menikah</span>';
+            }
+          },
+          "targets": 5
+        },
+        {
+          "render": function (data, type, row) {
             if (data == 'A') {
               return '<span class="text-success">Aktif</span>';
             } else {
               return '<span class="text-warning">Non Aktif</span>';
             }
           },
-          "targets": 7
+          "targets": 6
         },
         {
           "render": function (data, type, row) {
             return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button  class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\')">Hapus</button>';
           },
-          "targets": 9
+          "targets": 8
         },
       ]
     });

@@ -22,16 +22,15 @@
           <a href="<?= base_url().'tpq/teacher/add'?>" class="btn btn-primary btn-flat btn-fill  pull-left btn-sm" style><i class="fa fa-plus"></i>&nbsp; Tambah</a>
           <a href="<?= base_url().'tpq/teacher/search_page'?>" class="btn btn-default btn-flat btn-fill btn-sm pull-left"><i class="fa fa-search"></i>&nbsp; Pencarian Lebih Lanjut</a>
           <small>
-            <table class="table table-bordered table-striped table-hover dataTable table1" style="font-size: 13px;">
+            <table class="table table-bordered table-striped table-hover dataTable table1" >
               <thead>
                 <tr>
                   <th>No</th>
                   <th>Nama</th>
                   <th>Gender</th>
-                  <th>TPQ</th>
-                  <th>Alias</th>
                   <th>Email</th>
                   <th>Kontak</th>
+                  <th>Status</th>                  
                   <th>Aktif</th>
                   <th>Update Terakhir</th>
                   <th>Aksi</th>

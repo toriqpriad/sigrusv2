@@ -23,12 +23,12 @@
       <div class="tab-content">
         <div class="tab-pane" id="akun">
           <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" value="<?=$records->email?>" id="email">
+            <label>Username</label>
+            <input type="text" class="form-control" value="<?=$records->username?>" id="username">
           </div>
           <div class="form-group">
             <label>Password</label><br>
-            <button class="btn btn-flat btn-warning btn-md">Ganti Password</button>
+            <button class="btn btn-flat btn-warning btn-md" onclick="showPassword()">Ganti Password</button>
           </div>
         </div>
         <div class="tab-pane" id="profil">
@@ -82,7 +82,12 @@
                 <textarea class="form-control" rows="3" id="address"><?=$records->address?></textarea>
               </div>
             </div>
-            <div class="col-md-6"></div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" value="<?=$records->email?>" id="email">
+              </div>
+            </div>
           </div>
         </div>
         <!-- /.tab-pane -->
@@ -175,3 +180,35 @@
 <script>
 $('.select2').select2()
 </script>
+
+<div class="modal fade"  aria-labelledby="myModalLabel" id="PasswordModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ganti Password</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Masukkan Password Baru</label>
+              <input type="password" class="form-control border-input" id="new_pass" >
+              <br>
+              <?php if($records->user_status == 'N') {
+                echo '<small>NB : User baru saja dibuat, password sama dengan username.</small>';
+              }?>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="ChangePass()">Ya</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

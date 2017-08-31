@@ -28,7 +28,7 @@
           <!-- User Account: style can be found in dropdown.less -->
 
           <!-- Control Sidebar Toggle Button -->
-          <li><a style="margin-top:-3px" href=""><b>Administrator</b></a></li>
+          <li><a style="margin-top:-3px;text-transform: uppercase;" href=""><b>PPG KOTA WISATA BATU &nbsp; <i class="fa fa-genderless"></i>&nbsp;  Administrator</b></a></li>
           <li>
             <a href="#" onclick="logoutModal()" ><i class="fa fa-sign-out"></i></a>
           </li>

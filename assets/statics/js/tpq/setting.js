@@ -9,7 +9,7 @@ function update()
   var alias = $('#alias').val();
   var moto = $('#moto').val();
   var desc = $('#desc').val();
-  var addr = $('#addr').val();
+  var addr = $('#address').val();
   var contact = $('#contact').val();
   var email = $('#email').val();
   var old_logo = $('#logo_old').val();

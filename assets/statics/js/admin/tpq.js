@@ -71,6 +71,7 @@ function update() {
   var contact = $('#contact').val();
   var alias = $('#alias').val();
   var email = $('#email').val();
+  var username = $('#username').val();
   var addr = $('#address').val();
   var old_logo = $('#logo_old').val();
   var new_logo = $('#logo_new').val();
@@ -101,6 +102,7 @@ function update() {
   input.append('pc', pc);
   input.append('contact', contact);
   input.append('email', email);
+  input.append('username', username);
   input.append('alias', alias);
   input.append('logo', logo);
   input.append('cover', cover);
@@ -109,7 +111,7 @@ function update() {
   input.append('position_data', JSON.stringify(position_data));
   var post_url = 'tpq/update';
 
-  ServerPost(post_url,input);
+  ServerPost(post_url,input,true);
 }
 
 
@@ -120,10 +122,28 @@ function DeleteModal(link){
   $('#del_id').val(link);
 }
 
+function showPassword(link){
+  $('#PasswordModal').modal(
+    { backdrop: false}
+  );
+}
+
 function Delete(){
   var input = new FormData();
   input.append('id', $('#del_id').val());
   var delete_url = 'gallery/delete';
   ServerPost(delete_url,input);
   table.ajax.reload();
+}
+
+function ChangePass(){
+  var input = new FormData();
+  var id = $('#edit_id').val();
+  var new_pass = $.md5($('#new_pass').val());
+  var input = new FormData();
+  input.append('id', id);  
+  input.append('new_pass', new_pass);
+  var post_url = 'tpq/change_password';
+  ServerPost(post_url,input);
+
 }

@@ -18,7 +18,17 @@ function ServerPost(next_url,input,reload_action) {
           $.notify({
             message: '<i class="fa fa-check"></i> ' + response.message,
           }, {type: 'success'})
-          localStorage.setItem('backend_url', response.data.backend_url);
+          if(response.data.level == 'A'){
+            localStorage.setItem('admin_url', response.data.backend_url);
+          } else if(response.data.level == 'T'){
+            localStorage.setItem('tpq_url', response.data.backend_url);
+          }
+          if(reload_action){
+            setTimeout(function ()
+            {
+              window.location.href = response.data.link;
+            }, 1000);
+          }
         } else {
           $.notify({
             message: '<i class="fa fa-genderless"></i> ' + response.message,
@@ -29,12 +39,6 @@ function ServerPost(next_url,input,reload_action) {
             }, {type: 'danger'})
           })
         }
-        if(reload_action){
-        setTimeout(function ()
-        {
-          window.location.href = response.data.link;
-        }, 1000);
-      }
       }, 1000);
     }
   });

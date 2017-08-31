@@ -79,7 +79,7 @@ class setting extends tpq {
         $id = $this->data['tpq_id'];
         $name = $this->input->post("name");
         $username = $this->input->post("username");
-        $address = $this->input->post("address");
+        $address = $this->input->post("addr");
         $contact = $this->input->post("contact");
         $alias = $this->input->post("alias");
         $email = $this->input->post("email");
@@ -189,4 +189,35 @@ class setting extends tpq {
         echo json_encode($result);
     }
 
+
+    public function change_password() {
+      $old_pass = $this->input->post("old_pass");
+      $new_pass = $this->input->post("new_pass");
+      $dest_table_as = 'user as u';
+      $select_values = array('u.password');
+      $params = new stdClass();
+      $params->dest_table_as = $dest_table_as;
+      $params->select_values = $select_values;
+      $where1 = array("where_column" => 'u.level', "where_value" => "T");
+      $where2 = array("where_column" => 'u.id_level', "where_value" =>$this->data['tpq_id']);
+      $params->where_tables = array($where1,$where2);
+      $get = $this->data_model->get($params);
+      if ($get['response'] == OK_STATUS) {
+        if ($old_pass != $get['results'][0]->password) {
+          $response_data = array("response" => FAIL_STATUS, "message" => "Password lama tidak sesuai");
+        } else {
+          $params_data = new stdClass();
+          $params_data->new_data = array("password" => $new_pass);
+          $where1 = array("where_column" => 'u.level', "where_value" => "T");
+          $where2 = array("where_column" => 'u.id_level', "where_value" =>$this->data['tpq_id']);
+          $params_data->where_tables = array($where1,$where2);
+          $params_data->table_update = 'user as u';
+          $update = $this->data_model->update($params_data);
+          if ($update["response"] == OK_STATUS) {
+            $response_data = array("response" => OK_STATUS, "message" => "Password sudah diganti");
+          }
+        }
+      }
+      echo json_encode($response_data);
+    }
 }

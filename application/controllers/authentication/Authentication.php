@@ -64,6 +64,7 @@ class authentication extends CI_Controller {
 							$token = JWT::encode ( get_success ( $include ), SERVER_SECRET_KEY );
 							if($get ['results'] [0]->level == "A"){
 								$this->session->set_userdata ( 'admin_token', $token);
+								$data ['level'] = $get ['results'] [0]->level;
 								$data ['backend_url'] = ADMIN_WEBAPP_URL;
 								$data ['link'] = ADMIN_WEBAPP_URL.'dashboard';
 							} else {
@@ -71,6 +72,7 @@ class authentication extends CI_Controller {
 								$create_session = $this->create_session_data($get ['results'] [0]->id_level);
 								$data ['backend_url'] = TPQ_WEBAPP_URL;
 								$data ['link'] = TPQ_WEBAPP_URL.'dashboard';
+								$data ['level'] = $get ['results'] [0]->level;
 							}
 							// SET WEB SESSION //
 							if ($token == TRUE) {

@@ -55,7 +55,7 @@
           </script>
           <style>
           .table1 {
-            font-size: 11px;
+            font-size: 12px;
           }
           </style>
             </head>

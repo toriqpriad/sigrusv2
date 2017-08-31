@@ -36,6 +36,7 @@ $route['admin/tpq/add'] = 'admin/tpq/add';
 $route['admin/tpq/post'] = 'admin/tpq/post';
 $route['admin/tpq/update'] = 'admin/tpq/update';
 $route['admin/tpq/delete'] = 'admin/tpq/delete';
+$route['admin/tpq/change_password'] = 'admin/tpq/change_password';
 $route['admin/tpq/(:any)'] = 'admin/tpq/detail';
 
 //ADMIN teacher
@@ -123,6 +124,16 @@ $route['tpq/student/(:any)'] = 'tpq/student/detail';
 //TPQ position
 $route['tpq/position'] = 'tpq/position/detail';
 $route['tpq/position/update'] = 'tpq/position/update';
+
+
+//TPQ Kegiatan & Galeri
+$route['tpq/activity'] = 'tpq/activity/index';
+$route['tpq/activity/json'] = 'tpq/activity/json';
+$route['tpq/activity/add'] = 'tpq/activity/add';
+$route['tpq/activity/post'] = 'tpq/activity/post';
+$route['tpq/activity/update'] = 'tpq/activity/update';
+$route['tpq/activity/delete'] = 'tpq/activity/delete';
+$route['tpq/activity/(:any)'] = 'tpq/activity/detail';
 
 //TPQ setting$route['admin/setting'] = 'admin/setting/index';
 $route['tpq/setting'] = 'tpq/setting/detail';

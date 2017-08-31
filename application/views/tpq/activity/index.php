@@ -1,54 +1,48 @@
 
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h4>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h4>
 
-      <?php
-      if(isset($title_page)){
-        echo $title_page;
-      }
+        <?php
+        if(isset($title_page)){
+          echo $title_page;
+        }
       ?>
 
     </h4>
 
-  </section>
+    </section>
 
-  <!-- Main content -->
-  <section class="content ">
-    <!-- Default box -->
-    <div class="box box-success">
-      <div class="">
+    <!-- Main content -->
+    <section class="content">
+      <!-- Default box -->
+      <div class="box box-success">
         <div class="box-body">
-          <a href="<?= base_url().'tpq/student/add'?>" class="btn btn-primary btn-flat btn-fill  pull-left btn-sm" style><i class="fa fa-plus"></i>&nbsp; Tambah</a>
-          <a href="<?= base_url().'tpq/student/search_page'?>" class="btn btn-default btn-flat btn-fill btn-sm pull-left"><i class="fa fa-search"></i>&nbsp; Pencarian Lebih Lanjut</a>
+          <a href="<?= base_url().'tpq/activity/add'?>" class="btn btn-primary btn-flat btn-fill  pull-left btn-sm" style><i class="fa fa-plus"></i>&nbsp; Tambah</a>
           <small>
             <table class="table table-bordered table-striped table-hover dataTable table1" >
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Nama</th>
-                  <th>Gender</th>
-                  <th>Kategori</th>
-                  <th>Kontak</th>
-                  <th>Status</th>
-                  <th>Aktif</th>
+                  <th>Judul</th>
+                  <th>Deskripsi</th>
+                  <th>Tanggal Pelaksanaan</th>
                   <th>Update Terakhir</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
-            </tbody>
-          </table>
-        </small>
+      </tbody>
+    </table>
+  </small>
+        </div>
       </div>
-    </div>
-  </div>
-  <!-- /.box -->
+      <!-- /.box -->
 
-</section>
-<!-- /.content -->
+    </section>
+    <!-- /.content -->
 
-<!-- /.content-wrapper -->
+  <!-- /.content-wrapper -->
 
 </div>
 

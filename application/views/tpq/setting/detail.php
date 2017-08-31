@@ -67,8 +67,8 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>Email</label>
-                <input type="text" class="form-control" value="<?=$records->email?>" id="email">
+                <label>Kontak</label>
+                <input type="text" class="form-control" value="<?=$records->contact?>" id="contact">
               </div>
             </div>
             <div class="col-md-6">
@@ -84,7 +84,7 @@
             <div class='col-md-6'>
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control" value="<?=$records->username?>" id="username">
+                <input type="text" class="form-control" value="<?=$records->email?>" id="username">
               </div>
             </div>
             <div class='col-md-6'>

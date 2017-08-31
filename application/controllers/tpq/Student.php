@@ -67,6 +67,7 @@ class student extends tpq
     $place = $this->input->post("place");
     $date = $this->input->post("date");
     $email = $this->input->post("email");
+    $status = $this->input->post("status");
     $link = strtolower(preg_replace("/[^a-zA-Z0-9]/", "", $name));
     $params_check = new stdClass();
     $params_data = array(
@@ -80,6 +81,7 @@ class student extends tpq
       "link" => $link,
       "student_category" => $student_category,
       "address" => $address,
+      "status" => $status,
       "update_at" => date('d-m-Y h:m')
     );
     $dest_table = 'student';

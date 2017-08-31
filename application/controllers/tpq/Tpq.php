@@ -101,6 +101,13 @@ class tpq extends CI_Controller
       "icon" => "fa fa-cubes 1x"
     );
 
+    $activity = array(
+      "label" => "Kegiatan",
+      "link" => site_url() . 'tpq/activity/',
+      "page_name" => "activity",
+      "icon" => "fa fa-tags 1x"
+    );
+
     $setting = array(
       "label" => "Pengaturan",
       "link" => site_url() . 'tpq/setting/',
@@ -108,7 +115,7 @@ class tpq extends CI_Controller
       "icon" => "fa fa-cog 1x"
     );
 
-    $array = [$dashboard,$teacher,$student,$tpq_position,$setting];
+    $array = [$dashboard,$teacher,$student,$activity,$tpq_position,$setting];
     return $array;
   }
 

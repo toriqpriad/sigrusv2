@@ -12,15 +12,21 @@ class tpq extends admin
     }
 
     public function get_login_data($tpq_id){
-      $parameter = $tpq_id;
-      $params = new stdClass();
-      $params->dest_table_as = 'user as u';
-      $params->select_values = array('u.username');
-      $where1 = array("where_column" => 'u.id_level', "where_value" => $parameter);
-      $where2 = array("where_column" => 'u.level', "where_value" => 'T');
-      $params->where_tables = array($where1,$where2);
-      $get = $this->data_model->get($params);
-      return $get['results'][0];
+        $parameter = $tpq_id;
+        $params = new stdClass();
+        $params->dest_table_as = 'user as u';
+        $params->select_values = array('u.username','u.status as user_status');
+        $where1 = array("where_column" => 'u.id_level', "where_value" => $parameter);
+        $where2 = array("where_column" => 'u.level', "where_value" => 'T');
+        $params->where_tables = array($where1,$where2);
+        $get = $this->data_model->get($params);
+
+        if($get['results'] != ''){
+            $res = $get['results'][0];
+        } else {
+            $res = '';
+        }
+        return $res;
     }
 
     public function json()
@@ -73,14 +79,14 @@ class tpq extends admin
         $link = strtolower(preg_replace("/[^a-zA-Z0-9]/", "", $name));
         $params_check = new stdClass();
         $params_data = array(
-        "name" => $name,
-        "id_pc" => $pc,
-        "contact" => $contact,
-        "email" => $email,
-        "alias" => $alias,
-        "link" => $link,
-        "address" => $address,
-        "update_at" => date('d-m-Y h:m')
+            "name" => $name,
+            "id_pc" => $pc,
+            "contact" => $contact,
+            "email" => $email,
+            "alias" => $alias,
+            "link" => $link,
+            "address" => $address,
+            "update_at" => date('d-m-Y h:m')
         );
         $dest_table = 'tpq';
         $add = $this->data_model->add($params_data, $dest_table);
@@ -115,14 +121,27 @@ class tpq extends admin
         $tpq_position = $this->get_tpq_position_option();
         foreach ($tpq_position as $each) {
             $add_position_tpq = array(
-        "id_tpq" => $tpq_id,
-        "id_tpq_position" => $each->position_id,
-        "name" => "",
-        "update_at" => date('d-m-Y h:m')
-        );
+                "id_tpq" => $tpq_id,
+                "id_tpq_position" => $each->position_id,
+                "name" => "",
+                "update_at" => date('d-m-Y h:m')
+            );
             $dest_table = 'tpq_position_person';
             $add = $this->data_model->add($add_position_tpq, $dest_table);
             $add_position_tpq = "";
+        }
+
+        if($link){
+            $add_login_tpq = array(
+                "username" => $link.$tpq_id,
+                "password" => md5($link.$tpq_id),
+                "level" => "T",
+                "id_level" => $tpq_id,
+                "status" => 'N',
+                "update_at" => date('d-m-Y h:m')
+            );
+            $login_table = 'user';
+            $add = $this->data_model->add($add_login_tpq, $login_table);
         }
 
 
@@ -180,7 +199,10 @@ class tpq extends admin
             $params_pgrs->or_where_tables = array($where2);
             $get_pgrs = $this->data_model->get($params_pgrs);
             $login_data = $this->get_login_data($parameter);
-            $get['results'][0]->username = $login_data->username;
+            if($login_data != NULL){
+                $get['results'][0]->username = $login_data->username;
+                $get['results'][0]->user_status = $login_data->user_status;
+            }
             $this->data['records'] = $get['results'][0];
             $this->data['position'] = $get_pgrs['results'];
             $this->data['title_page'] = $get["results"][0]->name;
@@ -197,6 +219,7 @@ class tpq extends admin
         $address = $this->input->post("address");
         $contact = $this->input->post("contact");
         $alias = $this->input->post("alias");
+        $username = $this->input->post("username");
         $email = $this->input->post("email");
         $pc = $this->input->post("pc");
         $link = strtolower(preg_replace("/[^a-zA-Z0-9]/", "", $name));
@@ -206,14 +229,14 @@ class tpq extends admin
 
         $params_data = new stdClass();
         $params_data->new_data = array(
-        "name" => $name,
-        "id_pc" => $pc,
-        "contact" => $contact,
-        "email" => $email,
-        "alias" => $alias,
-        "link" => $link,
-        "address" => $address,
-        "update_at" => date('d-m-Y h:m')
+            "name" => $name,
+            "id_pc" => $pc,
+            "contact" => $contact,
+            "email" => $email,
+            "alias" => $alias,
+            "link" => $link,
+            "address" => $address,
+            "update_at" => date('d-m-Y h:m')
         );
         $where = array("where_column" => 'id', "where_value" => $id);
         $params_data->where_tables = array($where);
@@ -282,14 +305,24 @@ class tpq extends admin
             }
             foreach ($position_data as $data) {
                 $new_data = array(
-                "id_tpq_position" => $data->position_id,
-                "id_tpq" => $id,
-                "name" => $data->position_person,
-                "update_at" => date('d-m-Y h:m')
-              );
+                    "id_tpq_position" => $data->position_id,
+                    "id_tpq" => $id,
+                    "name" => $data->position_person,
+                    "update_at" => date('d-m-Y h:m')
+                );
                 $dest_table_sc = 'tpq_position_person';
                 $add_sc = $this->data_model->add($new_data, $dest_table_sc);
             }
+        }
+
+        if($username != ""){
+            $login_data = new stdClass();
+            $login_data->new_data = array("username" => $username);
+            $where1 = array("where_column" => 'u.level', "where_value" => "T");
+            $where2 = array("where_column" => 'u.id_level', "where_value" =>$id);
+            $login_data->where_tables = array($where1,$where2);
+            $login_data->table_update = 'user as u';
+            $update_login_data = $this->data_model->update($login_data);
         }
 
         if ($update['response'] == OK_STATUS) {
@@ -343,5 +376,33 @@ class tpq extends admin
             $result = response_fail();
         }
         echo json_encode($result);
+    }
+
+    public function change_password() {
+        $id = $this->input->post("id");
+        // $old_pass = $this->input->post("old_pass");
+        $new_pass = $this->input->post("new_pass");
+        $dest_table_as = 'user as u';
+        $select_values = array('u.password');
+        $params = new stdClass();
+        $params->dest_table_as = $dest_table_as;
+        $params->select_values = $select_values;
+        $where1 = array("where_column" => 'u.level', "where_value" => "T");
+        $where2 = array("where_column" => 'u.id_level', "where_value" =>$id);
+        $params->where_tables = array($where1,$where2);
+        $get = $this->data_model->get($params);
+        if ($get['response'] == OK_STATUS) {
+            $params_data = new stdClass();
+            $params_data->new_data = array("password" => $new_pass,"status" => 'E', "update_at" => date('d-m-Y h:m') );
+            $where1 = array("where_column" => 'u.level', "where_value" => "T");
+            $where2 = array("where_column" => 'u.id_level', "where_value" =>$id);
+            $params_data->where_tables = array($where1,$where2);
+            $params_data->table_update = 'user as u';
+            $update = $this->data_model->update($params_data);
+            if ($update["response"] == OK_STATUS) {
+                $response_data = array("response" => OK_STATUS, "message" => "Password sudah diganti");
+            }
+        }
+        echo json_encode($response_data);
     }
 }

@@ -1,6 +1,3 @@
-var site = localStorage.getItem('backend_url');
-var url = localStorage.getItem('backend_url');
-
 function ServerPost(next_url,input,reload_action) {
   $.notify({
     message: '<i id="notif" class="fa fa-cog fa-spin"></i> Sedang memproses ... .',
@@ -45,12 +42,4 @@ function ServerPost(next_url,input,reload_action) {
 
 function logoutModal() {
   $('#logoutModal').modal('show');
-}
-
-function logoutProcess() {
-  var post_url = 'logout';
-  $('#logoutModal').modal('hide');
-  ServerPost(post_url,'',true);
-  localStorage.removeItem('backend_url');
-
 }
