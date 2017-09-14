@@ -74,47 +74,46 @@ function post() {
 
 function update() {
   var id = $('#edit_id').val();
-  var name = $('#name').val();
-  empty_validate(name, 'Nama');
-  var tpq_last = $('#tpq_last_id').val();
-  var activity_category = $('#activity_category').val();
-  var contact = $('#contact').val();
-  var email = $('#email').val();
-  var addr = $('#address').val();
-  var gender = $('#gender').val();
-  var active = $('#active').val();
-  var place = $('#place_birth').val();
-  var education = $('#education').val();
-  var education_detail = $('#education_detail').val();
-  var date = $('#date_birth').val();
-  var status = $('#status').val();
-  var old_foto = $('#foto_old').val();
-  var new_foto = $('#foto_new').val();
-  if (new_foto != undefined) {
-    var foto = $('#foto').prop('files')[0];
-  } else {
-    var foto = 'old';
-  }
-
+  var title = $('#title').val();
+  empty_validate(title, 'Judul');
+  var desc = $('#desc').val();
+  var date = $('#date').val();
+  var img_1_old = $('#img_1_old').val();
+  var img_2_old = $('#img_2_old').val();
+  var img_3_old = $('#img_3_old').val();
+  var img_4_old = $('#img_4_old').val();
+  var img_5_old = $('#img_5_old').val();
+  var img_6_old = $('#img_6_old').val();
+  var img_1_new = $('#img_1').prop('files')[0];
+  var img_2_new = $('#img_2').prop('files')[0];
+  var img_3_new = $('#img_3').prop('files')[0];
+  var img_4_new = $('#img_4').prop('files')[0];
+  var img_5_new = $('#img_5').prop('files')[0];
+  var img_6_new = $('#img_6').prop('files')[0];
+  var to_delete = [];
+  $(".to_delete").each(function() {
+    to_delete.push($(this).val());
+  });
   var input = new FormData();
   input.append('id', id);
-  input.append('name', name);
-  input.append('gender', gender);
-  input.append('address', addr);
-  input.append('tpq_last_id', tpq_last);
-  input.append('place', place);
+  input.append('title', title);
+  input.append('desc', desc);
   input.append('date', date);
-  input.append('activity_category', activity_category);
-  input.append('contact', contact);
-  input.append('status', status);
-  input.append('email', email);
-  input.append('education', education);
-  input.append('education_detail', education_detail);
-  input.append('foto', foto);
-  input.append('active', active);
-  input.append('old_foto', old_foto);
+  input.append('img_1_old', img_1_old);
+  input.append('img_2_old', img_2_old);
+  input.append('img_3_old', img_3_old);
+  input.append('img_4_old', img_4_old);
+  input.append('img_5_old', img_5_old);
+  input.append('img_6_old', img_6_old);
+  input.append('img_1_new', img_1_new);
+  input.append('img_2_new', img_2_new);
+  input.append('img_3_new', img_3_new);
+  input.append('img_4_new', img_4_new);
+  input.append('img_5_new', img_5_new);
+  input.append('img_6_new', img_6_new);
+  input.append('to_delete', JSON.stringify(to_delete));
   var post_url = 'activity/update';
-  ServerPost(post_url, input,true);
+  ServerPost(post_url, input);
 }
 
 

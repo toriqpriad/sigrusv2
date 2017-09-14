@@ -89,10 +89,11 @@
         </div>
         </div>
         <div class="box-footer">
-          <button type="submit" class="pull-right btn btn-flat btn-success" onclick="post()"><i class="fa fa-save"></i>&nbsp; Simpan</button>
+          <input type="hidden" id="edit_id" value='<?=$records->id?>'>
+          <button type="submit" class="pull-right btn btn-flat btn-success" onclick="update()"><i class="fa fa-save"></i>&nbsp; Simpan</button>
         </div>
         <!-- /.box -->
-
+        <div class="end"></div>
       </section>
       <!-- /.content -->
 

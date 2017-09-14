@@ -232,92 +232,151 @@ class activity extends tpq
   public function update()
   {
     $id = $this->input->post("id");
-    $name = $this->input->post("name");
-    $gender = $this->input->post("gender");
-    $address = $this->input->post("address");
-    $activity_category = $this->input->post("activity_category");
     $tpq = $this->data['tpq_id'];
-    $tpq_last_id = $this->input->post("tpq_last_id");
-    $contact = $this->input->post("contact");
-    $place = $this->input->post("place");
+    $params = new stdClass();
+    $params->dest_table_as = 'activity as p';
+    $params->select_values = array('p.id');
+    $params->where_tables = array(array("where_column" => 'p.id', "where_value" => $id));
+    $get = $this->data_model->get($params);
+    if($get["response"] == FAIL_STATUS){
+      echo json_encode(response_fail());
+      exit();
+    } else {
+      if($get["results"] == ""){
+        echo json_encode(response_fail());
+        exit();
+      }
+    }
+    $title = $this->input->post("title");
+    $desc = $this->input->post("desc");
     $date = $this->input->post("date");
-    $status = $this->input->post("status");
-    $education = $this->input->post("education");
-    $education_detail = $this->input->post("education_detail");
-    $email = $this->input->post("email");
-    $old_foto = $this->input->post("old_foto");
-    $active = $this->input->post("active");
-    $link = strtolower(preg_replace("/[^a-zA-Z0-9]/", "", $name));
+    $tpq_id = $this->data['tpq_id'];
+
+    $img1old = $this->input->post("img_1_old");
+    $img2old = $this->input->post("img_2_old");
+    $img3old = $this->input->post("img_3_old");
+    $img4old = $this->input->post("img_4_old");
+    $img5old = $this->input->post("img_5_old");
+    $img6old = $this->input->post("img_6_old");
+    $to_delete = $this->input->post("to_delete");
     $params_data = new stdClass();
     $params_data->new_data = array(
-      "name" => $name,
-      "gender" => $gender,
-      "id_tpq" => $tpq,
-      "contact" => $contact,
-      "email" => $email,
-      "place_birth" => $place,
-      "date_birth" => $date,
-      "link" => $link,
-      "education" => $education,
-      "education_detail" => $education_detail,
-      "status" => $status,
-      "active" => $active,
-      "activity_category" => $activity_category,
-      "address" => $address,
+      "title" => $title,
+      "description" => $desc,
+      "level" => 'T',
+      "id_level" => $tpq,
+      "date" => $date,
       "update_at" => date('d-m-Y h:m')
     );
+
     $where = array("where_column" => 'id', "where_value" => $id);
     $params_data->where_tables = array($where);
     $params_data->table_update = 'activity';
     $update = $this->data_model->update($params_data);
-    $error = [];
-    if (isset($_FILES["foto"])) {
-      if (!empty($_FILES["foto"]["name"])) {
-        $upload_foto = image_upload(array($_FILES["foto"]), BACKEND_IMAGE_UPLOAD_FOLDER . "/profile/");
-        if ($upload_foto->response == OK_STATUS) {
-          $image_foto_name = $upload_foto->data[0];
-          if ($old_foto != "") {
-            $remove_old = unlink(BACKEND_IMAGE_UPLOAD_FOLDER . '/profile/' . $old_foto);
-          }
-        } else {
-          if ($upload_foto->data['error']) {
-            foreach ($upload_foto->data['error'] as $er) {
-              array_push($error, $er);
-            }
-          }
-          $image_foto_name = $old_foto;
-        }
-      } else {
-        $image_foto_name = $old_foto;
-      }
-    } else {
-      $image_foto_name = $old_foto;
+
+    $img_uploads_array = [];
+    if(isset($_FILES["img_1_new"])){
+      $img1 = array("file" =>$_FILES["img_1_new"], "old" => $img1old,"sort" => '1');
+      array_push($img_uploads_array,$img1);
+    }
+    if(isset($_FILES["img_2_new"])){
+      $img2 = array("file" =>$_FILES["img_2_new"], "old" => $img2old,"sort" => '2');
+      array_push($img_uploads_array,$img2);
     }
 
-    $params_update = new stdClass();
-    $params_update->new_data = array("photo" => $image_foto_name);
-    $where = array("where_column" => 'id', "where_value" => $id);
-    $params_update->where_tables = array($where);
-    $params_update->table_update = 'activity';
-    $update_foto_cover = $this->data_model->update($params_update);
+    if(isset($_FILES["img_3_new"])){
+      $img3 = array("file" =>$_FILES["img_3_new"], "old" => $img3old,"sort" => '3');
+      array_push($img_uploads_array,$img3);
+    }
+
+    if(isset($_FILES["img_4_new"])){
+      $img4 = array("file" =>$_FILES["img_4_new"], "old" => $img4old,"sort" => '4');
+      array_push($img_uploads_array,$img4);
+    }
+
+    if(isset($_FILES["img_5_new"])){
+      $img5 = array("file" =>$_FILES["img_5_new"], "old" => $img5old,"sort" => '5');
+      array_push($img_uploads_array,$img5);
+    }
+
+    if(isset($_FILES["img_6_new"])){
+      $img6 = array("file" =>$_FILES["img_6_new"], "old" => $img4old,"sort" => '6');
+      array_push($img_uploads_array,$img6);
+    }
+
+    $error_upload = [];
+    $success_upload = [];
+    $dir = BACKEND_IMAGE_UPLOAD_FOLDER.'activity/';
+    foreach($img_uploads_array as $ar){
+      $upload = image_upload(array($ar["file"]) , $dir);
+      if ($upload->response == OK_STATUS) {
+        $image_name = $upload->data[0];
+        if ($ar["old"] != "") {
+          $remove_old = unlink( $dir. $ar["old"]);
+        }
+        array_push($success_upload,array("new" => $image_name, "old" => $ar["old"], "sort" => $ar['sort']));
+
+      } else {
+        if ($upload->data['error']) {
+          foreach ($upload->data['error'] as $er) {
+            array_push($error_upload, $er);
+          }
+        }
+      }
+    }
+
+    foreach($success_upload as $each){
+      if($each['old'] != ""){
+        $params_update_images = new stdClass();
+        $params_update_images->new_data = array("image" => $each['new']);
+        $where1 = array("where_column" => 'image', "where_value" => $each['old']);
+        $where2 = array("where_column" => 'sort', "where_value" => $each['sort']);
+        $params_update_images->where_tables = array($where1,$where2);
+        $params_update_images->table_update = 'activity_image';
+        $update_images = $this->data_model->update($params_update_images);
+      } else {
+        $params_data = array(
+          "id_activity" => $id,
+          "image" => $each['new'],
+          "sort" => $each['sort'],
+        );
+        $dest_table = 'activity_image';
+        $add = $this->data_model->add($params_data, $dest_table);
+      }
+    }
+
+    if(isset($to_delete)){
+      $del_data = json_decode($to_delete);
+      foreach($del_data as $del){
+        $params_delete = new stdClass();
+        $where1 = array("where_column" => 'image', "where_value" => $del);
+        $params_delete->where_tables = array($where1);
+        $params_delete->table = 'activity_image';
+        $delete = $this->data_model->delete($params_delete);
+        $check_thumb = check_if_empty($del, $dir);
+        if($check_thumb != NO_IMG_NAME){
+          $remove_old = unlink($dir . $del);
+        }
+      }
+    }
 
 
-    if ($update['response'] == OK_STATUS) {
+    if ($update['response'] == OK_STATUS ) {
       $params = new stdClass();
-      if ($error) {
+      if ($error_upload) {
         $params->response = FAIL_STATUS;
         $params->message = "Peringatan";
-        $params->data = array('link' => base_url() . 'tpq/activity/' . $id);
-        $params->data = $error;
+        $params->data = array('link' => base_url() . 'admin/product/' . $id,"error" => $error_upload);
       } else {
         $params->response = OK_STATUS;
         $params->message = OK_MESSAGE;
-        $params->data = array('link' => base_url() . 'tpq/activity/' . $id);
+        $params->data = array('link' => base_url() . 'admin/product/' . $id);
       }
       $result = response_custom($params);
     } else {
       $result = response_fail();
     }
+
     echo json_encode($result);
   }
 

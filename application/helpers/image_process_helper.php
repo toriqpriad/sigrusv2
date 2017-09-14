@@ -11,11 +11,7 @@ if (!defined('BASEPATH')) {
 
 function image_move($new_dir,$old_dir,$image_name){
   if(!empty($image_name)){
-    $old = $old_dir.$image_name;
-    // if(!is_dir($new_dir)){
-    //   $dircheck = mkdir($new_dir);
-    // }
-    print_r($new_dir);
+    $old = $old_dir.$image_name;    
     $dircheck = mkdir($new_dir);
     $new = $new_dir.$image_name;
     $copy = copy($old,$new);
