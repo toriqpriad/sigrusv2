@@ -38,7 +38,7 @@
     </div>
     <div class="collapse"  id='filter'>
       <br><br><br>
-      <div class="container well">
+      <div class="well">
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">

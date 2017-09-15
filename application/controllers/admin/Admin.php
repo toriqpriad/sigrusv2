@@ -69,7 +69,7 @@ class admin extends CI_Controller
     $params->dest_table_as = 'setting as s';
     $params->select_values = array(
       's.*'
-    );
+      );
     $get = $this->data_model->get($params);
     return $get ['results'] [0];
   }
@@ -89,48 +89,55 @@ class admin extends CI_Controller
       "link" => site_url() . 'admin/',
       "page_name" => "dashboard",
       "icon" => "fa fa-tachometer 1x"
-    );
+      );
     $pc = array(
       "label" => "PC",
       "link" => site_url() . 'admin/pc/',
       "page_name" => "pc",
       "icon" => "fa fa-university 1x"
-    );
+      );
 
     $tpq = array(
       "label" => "TPQ",
       "link" => site_url() . 'admin/tpq/',
       "page_name" => "tpq",
       "icon" => "fa fa-home 1x"
-    );
+      );
 
     $teacher = array(
       "label" => "Pengajar",
       "link" => site_url() . 'admin/teacher/',
       "page_name" => "teacher",
       "icon" => "fa fa-user-o 1x"
-    );
+      );
 
     $student = array(
       "label" => "Siswa",
       "link" => site_url() . 'admin/student/',
       "page_name" => "student",
       "icon" => "fa fa-users 1x"
-    );
+      );
 
     $tpq_position = array(
       "label" => "Pengurus TPQ",
       "link" => site_url() . 'admin/tpq_position/',
       "page_name" => "tpq_position",
       "icon" => "fa fa-cubes 1x"
-    );
+      );
+
+    $this_position = array(
+      "label" => "Pengurus PPG",
+      "link" => site_url() . 'admin/position/',
+      "page_name" => "position",
+      "icon" => "fa fa-handshake-o 1x"
+      );
 
     $socmed = array (
       "label" => "Sosial Media",
       "link" => site_url () . 'admin/socmed/',
       "page_name" => "socmed",
       "icon" => "fa fa-share-alt 1x"
-    );
+      );
 
 
     $setting = array(
@@ -138,9 +145,9 @@ class admin extends CI_Controller
       "link" => site_url() . 'admin/setting/',
       "page_name" => "setting",
       "icon" => "fa fa-cog 1x"
-    );
+      );
 
-    $array = [$dashboard,$pc,$tpq,$teacher,$student,$tpq_position ,$socmed,$setting];
+    $array = [$dashboard,$pc,$tpq,$teacher,$student,$tpq_position ,$this_position,$socmed,$setting];
     return $array;
   }
 

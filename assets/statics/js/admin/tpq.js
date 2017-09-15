@@ -1,14 +1,14 @@
 
 function table_render(){
   $.notify({
-    message: '<i id="notif" class="fa fa-refresh fa-spin"></i> Proses ... ',
+    message: '<i id="notif" class="fa fa-refresh fa-spin"></i> Proses ... ',    
   }, {type: 'info', delay: 30});
   setTimeout(function ()
   {
-  var detail = url + "tpq";
-  var table = $('.table1').DataTable({
-    ajax : url+"tpq/json",
-    columns: [
+    var detail = url + "tpq";
+    var table = $('.table1').DataTable({
+      ajax : url+"tpq/json",
+      columns: [
       {data : null},
       { data: 'name' },
       { data: 'alias' },
@@ -17,27 +17,27 @@ function table_render(){
       { data: 'contact' },
       { data: 'update_at' },
       {data: 'id'},
-    ],
-    dom: 'Bfrtip',
-    buttons: [
+      ],
+      dom: 'Bfrtip',
+      buttons: [
 
-    ],
-    columnDefs: [
+      ],
+      columnDefs: [
       {
         "render": function ( data, type, row ) {
-          return '<a href="'+detail+'/'+data+'"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button  class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\''+data+'\')">Hapus</button>';
+          return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button   class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\',this)">Hapus</button>';
         },
         "targets": 7
       },
-    ]
-  });
+      ]
+    });
 
-  table.on( 'order.dt search.dt', function () {
-    table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-      cell.innerHTML = i+1;
-    } );
-  } ).draw();
-},500 )
+    table.on( 'order.dt search.dt', function () {
+      table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+        cell.innerHTML = i+1;
+      } );
+    } ).draw();
+  },500 )
 }
 
 function post() {
@@ -115,26 +115,31 @@ function update() {
 }
 
 
-function DeleteModal(link){
+function DeleteModal(link,row) {  
   $('#deleteModal').modal(
-    { backdrop: false}
-  );
+    { backdrop: false }
+    );
   $('#del_id').val(link);
+  $('#yes').click(function(){
+    Delete(row);
+  })
+
+}
+
+function Delete(row) {
+  var input = new FormData();
+  input.append('id', $('#del_id').val());
+  var delete_url = 'tpq/delete';
+  ServerPost(delete_url, input);  
+  $(row).closest('tr').remove();
 }
 
 function showPassword(link){
   $('#PasswordModal').modal(
     { backdrop: false}
-  );
+    );
 }
 
-function Delete(){
-  var input = new FormData();
-  input.append('id', $('#del_id').val());
-  var delete_url = 'gallery/delete';
-  ServerPost(delete_url,input);
-  table.ajax.reload();
-}
 
 function ChangePass(){
   var input = new FormData();

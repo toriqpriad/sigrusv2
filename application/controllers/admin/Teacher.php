@@ -197,7 +197,7 @@ class teacher extends admin
       "teacher_category" => $teacher_category,
       "address" => $address,
       "update_at" => date('d-m-Y h:m')
-    );
+      );
     $dest_table = 'teacher';
     $add = $this->data_model->add($params_data, $dest_table);
     $teacher_id = $add["data"];
@@ -299,7 +299,7 @@ class teacher extends admin
       "teacher_category" => $teacher_category,
       "address" => $address,
       "update_at" => date('d-m-Y h:m')
-    );
+      );
     $where = array("where_column" => 'id', "where_value" => $id);
     $params_data->where_tables = array($where);
     $params_data->table_update = 'teacher';
@@ -358,28 +358,24 @@ class teacher extends admin
 
   public function delete()
   {
-    $id_delete = $this->input->post("id");
-    $params_delete = new stdClass();
-    $where1 = array("where_column" => 'teacher_id', "where_value" => $id_delete);
-    $params_delete->where_tables = array($where1);
-    $params_delete->table = 'teacher_images';
-    $delete = $this->data_model->delete($params_delete);
-
+    $id = $this->input->post('id');
+    $params = new stdClass();
+    $params->dest_table_as = 'teacher as t';
+    $params->select_values = array('t.photo');
+    $params->where_tables = array(array("where_column" => 't.id', "where_value" => $id));
+    $get = $this->data_model->get($params);
+    $photo = $get['results'][0]->photo;
+    if($photo){
+      $file = BACKEND_IMAGE_UPLOAD_FOLDER.'profile/'.$photo;
+      $unlink_files = unlink($file);
+    }
     $delete = new stdClass();
-    $where1 = array("where_column" => 'id', "where_value" => $id_delete);
+    $where1 = array("where_column" => 'id', "where_value" => $id);
     $delete->where_tables = array($where1);
     $delete->table = 'teacher';
     $delete_teacher = $this->data_model->delete($delete);
 
-    $dir = BACKEND_IMAGE_UPLOAD_FOLDER.'teacher/'.$id_delete.'/';
-    $files = glob($dir.'*');
-
-    foreach ($files as $file) {
-      $unlink_files = unlink($file);
-    }
-
-    $rm_dir = rmdir($dir);
-
+    
     if ($delete_teacher['response'] == OK_STATUS) {
       $result = response_success();
     } else {

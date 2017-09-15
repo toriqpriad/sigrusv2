@@ -160,8 +160,8 @@ class data_model extends CI_Model {
         $query = $this->db->delete($table);
         if ($query == TRUE) {
             $response = OK_STATUS;
-            $data = array("response" => $response,"log" => $this->db->last_query());
-            // $data = array("response" => $response);
+            // $data = array("response" => $response,"log" => $this->db->last_query());
+            $data = array("response" => $response);
         } else {
             $response = FAIL_STATUS;
             $data = array("response" => $response);
@@ -186,5 +186,25 @@ class data_model extends CI_Model {
         }
         return $data;
     }
+
+    public function delete_now($table= NULL ,$column = NULL , $value = NULL) {
+        try {
+            $where = $this->db->where($column, $value);
+            $query = $this->db->delete($table);
+            if ($query == TRUE) {
+                $response = OK_STATUS;
+                $message = OK_MESSAGE;
+            } else {
+                $response = FAIL_STATUS;
+                $message = FAIL_MESSAGE;
+            }
+        } catch (Exception $e) {
+            $response = FAIL_STATUS;
+            $message = FAIL_MESSAGE;
+        }
+        $data = array("response" => $response, "message" => $message);
+        return $data;
+    }
+
 
 }

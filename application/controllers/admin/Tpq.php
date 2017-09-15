@@ -87,7 +87,7 @@ class tpq extends admin
             "link" => $link,
             "address" => $address,
             "update_at" => date('d-m-Y h:m')
-        );
+            );
         $dest_table = 'tpq';
         $add = $this->data_model->add($params_data, $dest_table);
         $tpq_id = $add["data"];
@@ -125,7 +125,7 @@ class tpq extends admin
                 "id_tpq_position" => $each->position_id,
                 "name" => "",
                 "update_at" => date('d-m-Y h:m')
-            );
+                );
             $dest_table = 'tpq_position_person';
             $add = $this->data_model->add($add_position_tpq, $dest_table);
             $add_position_tpq = "";
@@ -139,7 +139,7 @@ class tpq extends admin
                 "id_level" => $tpq_id,
                 "status" => 'N',
                 "update_at" => date('d-m-Y h:m')
-            );
+                );
             $login_table = 'user';
             $add = $this->data_model->add($add_login_tpq, $login_table);
         }
@@ -237,7 +237,7 @@ class tpq extends admin
             "link" => $link,
             "address" => $address,
             "update_at" => date('d-m-Y h:m')
-        );
+            );
         $where = array("where_column" => 'id', "where_value" => $id);
         $params_data->where_tables = array($where);
         $params_data->table_update = 'tpq';
@@ -309,7 +309,7 @@ class tpq extends admin
                     "id_tpq" => $id,
                     "name" => $data->position_person,
                     "update_at" => date('d-m-Y h:m')
-                );
+                    );
                 $dest_table_sc = 'tpq_position_person';
                 $add_sc = $this->data_model->add($new_data, $dest_table_sc);
             }
@@ -347,62 +347,67 @@ class tpq extends admin
 
     public function delete()
     {
-        $id_delete = $this->input->post("id");
-        // print_r($id);exit();
-        $params_delete = new stdClass();
-        $where1 = array("where_column" => 'tpq_id', "where_value" => $id_delete);
-        $params_delete->where_tables = array($where1);
-        $params_delete->table = 'tpq_images';
-        $delete = $this->data_model->delete($params_delete);
-
-        $delete = new stdClass();
-        $where1 = array("where_column" => 'id', "where_value" => $id_delete);
-        $delete->where_tables = array($where1);
-        $delete->table = 'tpq';
-        $delete_tpq = $this->data_model->delete($delete);
-
-        $dir = BACKEND_IMAGE_UPLOAD_FOLDER.'tpq/'.$id_delete.'/';
-        $files = glob($dir.'*');
-
-        foreach ($files as $file) {
-            $unlink_files = unlink($file);
-        }
-
-        $rm_dir = rmdir($dir);
-
-        if ($delete_tpq['response'] == OK_STATUS) {
-            $result = response_success();
-        } else {
-            $result = response_fail();
-        }
-        echo json_encode($result);
-    }
-
-    public function change_password() {
-        $id = $this->input->post("id");
-        // $old_pass = $this->input->post("old_pass");
-        $new_pass = $this->input->post("new_pass");
-        $dest_table_as = 'user as u';
-        $select_values = array('u.password');
+        $id = $this->input->post('id');
         $params = new stdClass();
-        $params->dest_table_as = $dest_table_as;
-        $params->select_values = $select_values;
+        $params->dest_table_as = 'tpq as t';
+        $params->select_values = array('t.logo','t.cover');
+        $params->where_tables = array(array("where_column" => 't.id', "where_value" => $id));
+        $get = $this->data_model->get($params);
+        $logo = $get['results'][0]->logo;
+        $cover = $get['results'][0]->cover;              
+
+
+        $teacher_del = $this->data_model->delete_now('teacher','id_tpq',$id);
+        $student_del = $this->data_model->delete_now('student','id_tpq',$id);
+        $position_del = $this->data_model->delete_now('tpq_position_person','id_tpq',$id);
+        $del = $this->data_model->delete_now('tpq','id',$id);
+
+        if($cover)
+        {
+          $file = BACKEND_IMAGE_UPLOAD_FOLDER.'cover/'.$cover;
+          $unlink_files = unlink($file);      
+      }
+
+      if($logo)
+      {
+          $file = BACKEND_IMAGE_UPLOAD_FOLDER.'logo/'.$logo;
+          $unlink_files = unlink($file);      
+      }
+
+
+      if ($del['response'] == OK_STATUS) {
+          $result = response_success();
+      } else {
+          $result = response_fail();
+      }
+      echo json_encode($result);
+  }
+
+  public function change_password() {
+    $id = $this->input->post("id");
+        // $old_pass = $this->input->post("old_pass");
+    $new_pass = $this->input->post("new_pass");
+    $dest_table_as = 'user as u';
+    $select_values = array('u.password');
+    $params = new stdClass();
+    $params->dest_table_as = $dest_table_as;
+    $params->select_values = $select_values;
+    $where1 = array("where_column" => 'u.level', "where_value" => "T");
+    $where2 = array("where_column" => 'u.id_level', "where_value" =>$id);
+    $params->where_tables = array($where1,$where2);
+    $get = $this->data_model->get($params);
+    if ($get['response'] == OK_STATUS) {
+        $params_data = new stdClass();
+        $params_data->new_data = array("password" => $new_pass,"status" => 'E', "update_at" => date('d-m-Y h:m') );
         $where1 = array("where_column" => 'u.level', "where_value" => "T");
         $where2 = array("where_column" => 'u.id_level', "where_value" =>$id);
-        $params->where_tables = array($where1,$where2);
-        $get = $this->data_model->get($params);
-        if ($get['response'] == OK_STATUS) {
-            $params_data = new stdClass();
-            $params_data->new_data = array("password" => $new_pass,"status" => 'E', "update_at" => date('d-m-Y h:m') );
-            $where1 = array("where_column" => 'u.level', "where_value" => "T");
-            $where2 = array("where_column" => 'u.id_level', "where_value" =>$id);
-            $params_data->where_tables = array($where1,$where2);
-            $params_data->table_update = 'user as u';
-            $update = $this->data_model->update($params_data);
-            if ($update["response"] == OK_STATUS) {
-                $response_data = array("response" => OK_STATUS, "message" => "Password sudah diganti");
-            }
+        $params_data->where_tables = array($where1,$where2);
+        $params_data->table_update = 'user as u';
+        $update = $this->data_model->update($params_data);
+        if ($update["response"] == OK_STATUS) {
+            $response_data = array("response" => OK_STATUS, "message" => "Password sudah diganti");
         }
-        echo json_encode($response_data);
     }
+    echo json_encode($response_data);
+}
 }

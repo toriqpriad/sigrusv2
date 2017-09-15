@@ -19,7 +19,7 @@
     <!-- Default box -->
     <div class="box box-success">
       <div class="box-body">
-        <a href="<?= base_url().'admin/socmed/add'?>" class="btn btn-primary btn-flat btn-fill  pull-left"><i class="fa fa-plus"></i>&nbsp; Tambah</a>
+        <a href="<?= base_url().'admin/tpq_position/add'?>" class="btn btn-primary btn-flat btn-fill  pull-left"><i class="fa fa-plus"></i>&nbsp; Tambah</a>
         <small>
           <table class="table table-bordered table-striped table-hover dataTable table1" style="font-size: 13px;">
             <thead>

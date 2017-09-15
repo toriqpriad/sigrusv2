@@ -131,7 +131,7 @@
         </div>
         <!-- /.tab-pane -->
         <div class="tab-pane" id="pengurus">
-          <table class="table table-bordered">
+          <table class="table table-bordered" >
             <thead>
               <tr>
                 <th>Pengurus TPQ</th>

@@ -39,7 +39,7 @@
     </div>
     <div class="collapse"  id='filter'>
       <br><br><br>
-      <div class="container well">
+      <div class="well">    
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -234,7 +234,7 @@
             <button style="margin-left:10px;" class="pull-right btn btn-md btn-flat btn-primary" onclick="search()"><i class="fa fa-search"></i>&nbsp; Cari</button>
           </div>
         </div>
-      </div>
+      </div>    
     </div>
     <br><br><br>
     <div class="table-responsive">
