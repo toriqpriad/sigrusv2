@@ -383,7 +383,45 @@ class tpq extends admin
       echo json_encode($result);
   }
 
-  public function change_password() {
+
+  public function delete_now($id)
+  {    
+    $params = new stdClass();
+    $params->dest_table_as = 'tpq as t';
+    $params->select_values = array('t.logo','t.cover');
+    $params->where_tables = array(array("where_column" => 't.id', "where_value" => $id));
+    $get = $this->data_model->get($params);
+    $logo = $get['results'][0]->logo;
+    $cover = $get['results'][0]->cover;              
+
+
+    $teacher_del = $this->data_model->delete_now('teacher','id_tpq',$id);
+    $student_del = $this->data_model->delete_now('student','id_tpq',$id);
+    $position_del = $this->data_model->delete_now('tpq_position_person','id_tpq',$id);
+    $del = $this->data_model->delete_now('tpq','id',$id);
+
+    if($cover)
+    {
+      $file = BACKEND_IMAGE_UPLOAD_FOLDER.'cover/'.$cover;
+      $unlink_files = unlink($file);      
+  }
+
+  if($logo)
+  {
+      $file = BACKEND_IMAGE_UPLOAD_FOLDER.'logo/'.$logo;
+      $unlink_files = unlink($file);      
+  }
+
+
+  if ($del['response'] == OK_STATUS) {
+      $result = response_success();
+  } else {
+      $result = response_fail();
+  }
+  echo json_encode($result);
+}
+
+public function change_password() {
     $id = $this->input->post("id");
         // $old_pass = $this->input->post("old_pass");
     $new_pass = $this->input->post("new_pass");

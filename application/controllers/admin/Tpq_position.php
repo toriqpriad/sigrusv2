@@ -42,10 +42,10 @@ class tpq_position extends admin
         $desc = $this->input->post("desc");
         $params_check = new stdClass();
         $params_data = array(
-        "name" => $name,
-        "description" => $desc,
-        "update_at" => date('d-m-Y h:m')
-        );
+            "name" => $name,
+            "description" => $desc,
+            "update_at" => date('d-m-Y h:m')
+            );
         $dest_table = 'tpq_position';
         $add = $this->data_model->add($params_data, $dest_table);
         $tpq_position_id = $add["data"];
@@ -102,10 +102,10 @@ class tpq_position extends admin
 
         $params_data = new stdClass();
         $params_data->new_data = array(
-        "name" => $name,
-        "description" => $desc,
-        "update_at" => date('d-m-Y h:m')
-        );
+            "name" => $name,
+            "description" => $desc,
+            "update_at" => date('d-m-Y h:m')
+            );
         $where = array("where_column" => 'id', "where_value" => $id);
         $params_data->where_tables = array($where);
         $params_data->table_update = 'tpq_position';
@@ -126,22 +126,9 @@ class tpq_position extends admin
 
     public function delete()
     {
-        $id_delete = $this->input->post("id");
-
-        $c = new stdClass();
-        $c->select_values = array('id');
-        $c->dest_table_as = 'tpq_position_person';
-        $where1 = array("where_column" => 'tpq_position_id', "where_value" => $id_delete);
-        $c->where_tables = array($where1);
-        $c_get = $this->data_model->get($c);
-        // print_r($c_get);exit();
-        if($c_get['results'] != ""){
-            foreach($c_get['results'] as $each){
-                $del = parent::mass_delete('tpq_position_id',$each->id,'tpq_position_person');
-            }
-        }
-        $del = parent::mass_delete('id',$id_delete,'tpq_position');
-        // print_r($del_cat['response']);exit();
+        $id = $this->input->post("id");        
+        $person_del = $this->data_model->delete_now('tpq_position_person','id_tpq_position',$id);
+        $del = $this->data_model->delete_now('tpq_position','id',$id);    
         if ($del['response'] == OK_STATUS) {
             $result = response_success();
         } else {

@@ -84,7 +84,7 @@
             <div class='col-md-6'>
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control" value="<?=$records->email?>" id="username">
+                <input type="text" class="form-control" value="<?=$records->username?>" id="username">
               </div>
             </div>
             <div class='col-md-6'>

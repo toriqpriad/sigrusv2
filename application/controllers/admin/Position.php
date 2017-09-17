@@ -25,14 +25,14 @@ class position extends admin
 
     public function index()
     {        
-        $this->data['title_page'] = "Pengurus TPQ";
+        $this->data['title_page'] = "Pengurus PPG";
         parent::display('admin/position/index', 'admin/position/function', true);
     }
 
 
     public function add()
     {
-        $this->data['title_page'] = "Tambah Pengurus TPQ";
+        $this->data['title_page'] = "Tambah Pengurus PPG";
         parent::display('admin/position/add', 'admin/position/function', false);
     }
 
@@ -153,22 +153,9 @@ class position extends admin
 
     public function delete()
     {
-        $id_delete = $this->input->post("id");
-
-        $c = new stdClass();
-        $c->select_values = array('id');
-        $c->dest_table_as = 'position_person';
-        $where1 = array("where_column" => 'position_id', "where_value" => $id_delete);
-        $c->where_tables = array($where1);
-        $c_get = $this->data_model->get($c);
-        // print_r($c_get);exit();
-        if($c_get['results'] != ""){
-            foreach($c_get['results'] as $each){
-                $del = parent::mass_delete('position_id',$each->id,'position_person');
-            }
-        }
-        $del = parent::mass_delete('id',$id_delete,'position');
-        // print_r($del_cat['response']);exit();
+        $id = $this->input->post("id");        
+        $person_del = $this->data_model->delete_now('position_person','position_id',$id);
+        $del = $this->data_model->delete_now('position','id',$id);    
         if ($del['response'] == OK_STATUS) {
             $result = response_success();
         } else {

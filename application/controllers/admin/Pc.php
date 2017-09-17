@@ -1,6 +1,8 @@
 <?php
 
 include 'Admin.php';
+// include 'Tpq.php';
+
 
 class pc extends admin {
 
@@ -8,9 +10,11 @@ class pc extends admin {
     parent::__construct();
     parent::checkauth();
     $this->data['active_page'] = "pc";
-  }
+  } 
 
-  public function json(){
+
+
+  public function json(){    
     $dest_table_as = 'pc';
     $select_values = array('*');
     $params = new stdClass();
@@ -20,8 +24,8 @@ class pc extends admin {
     echo json_encode(array("data" => $get['results']));
   }
 
-
   public function index() {
+
     $this->data['title_page'] = "Pengurus Cabang (PC)";
     parent::display('admin/pc/index','admin/pc/function',TRUE);
   }
@@ -42,7 +46,7 @@ class pc extends admin {
       "contact" => $contact,
       "address" => $address,
       "update_at" => date('d-m-Y h:m')
-    );
+      );
     $dest_table = 'pc';
     $add = $this->data_model->add($params_data, $dest_table);
     $pc_id = $add["data"];
@@ -101,7 +105,7 @@ class pc extends admin {
       "contact" => $contact,
       "address" => $address,
       "update_at" => date('d-m-Y h:m')
-    );
+      );
     $where = array("where_column" => 'id', "where_value" => $id);
     $params_data->where_tables = array($where);
     $params_data->table_update = 'pc';
@@ -120,36 +124,57 @@ class pc extends admin {
 
 
   public function delete(){
-    $id_delete = $this->input->post("id");
-    // print_r($id);exit();
-    $params_delete = new stdClass();
-    $where1 = array("where_column" => 'pc_id', "where_value" => $id_delete);
-    $params_delete->where_tables = array($where1);
-    $params_delete->table = 'pc_images';
-    $delete = $this->data_model->delete($params_delete);
-
-    $delete = new stdClass();
-    $where1 = array("where_column" => 'id', "where_value" => $id_delete);
-    $delete->where_tables = array($where1);
-    $delete->table = 'pc';
-    $delete_pc = $this->data_model->delete($delete);
-
-    $dir = BACKEND_IMAGE_UPLOAD_FOLDER.'pc/'.$id_delete.'/';
-    $files = glob($dir.'*');
-
-    foreach($files as $file){
-      $unlink_files = unlink($file);
+   $id = $this->input->post('id');
+   $params = new stdClass();
+   $params->dest_table_as = 'tpq';
+   $params->select_values = array('id');
+   $params->where_tables = array(array("where_column" => 'id_pc', "where_value" => $id));
+   $get = $this->data_model->get($params);
+   // print_r($get);
+   if($get['results'] != ""){
+    foreach($get['results'] as $each){
+      $del_tpq = $this->delete_tpq_data($each->id);
     }
-
-    $rm_dir = rmdir($dir);
-
-    if ($delete_pc['response'] == OK_STATUS) {
-      $result = response_success();
-    } else {
-      $result = response_fail();
-    }
-    echo json_encode($result);
   }
 
+  $del = $this->data_model->delete_now('pc','id',$id);
+  if ($del['response'] == OK_STATUS) {
+    $result = response_success();
+  } else {
+    $result = response_fail();
+  }
+  echo json_encode($result);
 
 }
+
+
+public function delete_tpq_data($id){
+  $params = new stdClass();
+  $params->dest_table_as = 'tpq as t';
+  $params->select_values = array('t.logo','t.cover');
+  $params->where_tables = array(array("where_column" => 't.id', "where_value" => $id));
+  $get = $this->data_model->get($params);
+  $logo = $get['results'][0]->logo;
+  $cover = $get['results'][0]->cover;              
+
+
+  $teacher_del = $this->data_model->delete_now('teacher','id_tpq',$id);
+  $student_del = $this->data_model->delete_now('student','id_tpq',$id);
+  $position_del = $this->data_model->delete_now('tpq_position_person','id_tpq',$id);
+  $del = $this->data_model->delete_now('tpq','id',$id);
+
+  if($cover)
+  {
+    $file = BACKEND_IMAGE_UPLOAD_FOLDER.'cover/'.$cover;
+    $unlink_files = unlink($file);      
+  }
+
+  if($logo)
+  {
+    $file = BACKEND_IMAGE_UPLOAD_FOLDER.'logo/'.$logo;
+    $unlink_files = unlink($file);      
+  }
+}
+
+}
+

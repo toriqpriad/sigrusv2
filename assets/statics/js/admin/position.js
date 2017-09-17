@@ -19,12 +19,14 @@ function table_render() {
       columnDefs: [
       {
         "render": function (data, type, row) {
-          return '<a id="rowid_'+data+'" href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button  class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\')">Hapus</button>';
+          return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button   class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\',this)">Hapus</button>';
         },
         "targets": 3
       },
       ]
     });
+
+    $(".alert").remove();
 
     table.on('order.dt search.dt', function () {
       table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
@@ -37,9 +39,7 @@ function table_render() {
 function post() {
   var name = $('#name').val();
   var desc = $('#desc').val();
-  empty_validate(name, 'Nama');
-
-  $.each(".")
+  empty_validate(name, 'Nama');  
   var input = new FormData();
   input.append('name', name);
   input.append('desc', desc);
@@ -69,18 +69,23 @@ function update() {
 }
 
 
-function DeleteModal(link) {
+function DeleteModal(link,row) {  
   $('#deleteModal').modal(
     { backdrop: false }
     );
   $('#del_id').val(link);
+  $('#yes').click(function(){
+    Delete(row);
+  })
+
 }
 
-function Delete() {
+function Delete(row) {
   var input = new FormData();
   input.append('id', $('#del_id').val());
   var delete_url = 'position/delete';
-  ServerPost(delete_url, input,false, $('#del_id').val() );
+  ServerPost(delete_url, input);  
+  $(row).closest('tr').remove();
 }
 
 function add_person_table(){

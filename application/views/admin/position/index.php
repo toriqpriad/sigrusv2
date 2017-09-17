@@ -59,7 +59,7 @@
         <input type="hidden" id="rowid" value="">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="Delete()">Ya</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="yes">Ya</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
       </div>
     </div>

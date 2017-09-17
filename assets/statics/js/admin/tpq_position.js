@@ -19,7 +19,7 @@ function table_render() {
       columnDefs: [
         {
           "render": function (data, type, row) {
-            return '<a id="rowid_'+data+'" href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button  class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\')">Hapus</button>';
+            return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button   class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\',this)">Hapus</button>';
           },
           "targets": 3
         },
@@ -59,16 +59,21 @@ function update() {
 }
 
 
-function DeleteModal(link) {
+function DeleteModal(link,row) {  
   $('#deleteModal').modal(
     { backdrop: false }
-  );
+    );
   $('#del_id').val(link);
+  $('#yes').click(function(){
+    Delete(row);
+  })
+
 }
 
-function Delete() {
+function Delete(row) {
   var input = new FormData();
   input.append('id', $('#del_id').val());
   var delete_url = 'tpq_position/delete';
-  ServerPost(delete_url, input,false, $('#del_id').val() );
+  ServerPost(delete_url, input);  
+  $(row).closest('tr').remove();
 }

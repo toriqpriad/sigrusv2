@@ -1,4 +1,5 @@
   function ServerPost(next_url,input,reload_action) {
+    $(".alert").remove();
     $.notify({
       message: '<i id="notif" class="fa fa-cog fa-spin"></i> Sedang memproses ... .',
     }, {type: 'warning', delay: 50}, );
@@ -14,6 +15,7 @@
       success: function (response) {
         setTimeout(function ()
         {
+          $(".alert").remove();
           if (response.response == 'OK') {
 
             $.notify({

@@ -66,7 +66,6 @@ class setting extends tpq {
           $login_data = $this->get_login_data();
           $get['results'][0]->username = $login_data->username;
           $this->data['records'] = $get['results'][0];
-          $this->data['pc_options'] = $this->get_pc_option();
           $this->data['title_page'] = $get["results"][0]->name;
           parent::display('tpq/setting/detail', 'tpq/setting/function');
       } else {

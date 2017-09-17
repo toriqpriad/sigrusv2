@@ -1,47 +1,47 @@
 
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h4>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h4>
 
-        <?php
-        if(isset($title_page)){
-          echo $title_page;
-        }
+      <?php
+      if(isset($title_page)){
+        echo $title_page;
+      }
       ?>
 
     </h4>
 
-    </section>
+  </section>
 
-    <!-- Main content -->
-    <section class="content">
-      <!-- Default box -->
-      <div class="box box-success">
-        <div class="box-body">
-          <a href="<?= base_url().'admin/pc/add'?>" class="btn btn-primary btn-flat btn-fill  pull-left"><i class="fa fa-plus"></i>&nbsp; Tambah</a>
-          <small>
-            <table class="table table-bordered table-striped table-hover dataTable table1" style="font-size: 13px;">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Nama</th>
-                  <th>Kontak</th>
-                  <th>Update Terakhir</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-      </tbody>
-    </table>
-  </small>
-        </div>
-      </div>
-      <!-- /.box -->
+  <!-- Main content -->
+  <section class="content">
+    <!-- Default box -->
+    <div class="box box-success">
+      <div class="box-body">
+        <a href="<?= base_url().'admin/pc/add'?>" class="btn btn-primary btn-flat btn-fill  pull-left"><i class="fa fa-plus"></i>&nbsp; Tambah</a>
+        <small>
+          <table class="table table-bordered table-striped table-hover dataTable table1" style="font-size: 13px;">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Kontak</th>
+                <th>Update Terakhir</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+          </tbody>
+        </table>
+      </small>
+    </div>
+  </div>
+  <!-- /.box -->
 
-    </section>
-    <!-- /.content -->
+</section>
+<!-- /.content -->
 
-  <!-- /.content-wrapper -->
+<!-- /.content-wrapper -->
 
 </div>
 
@@ -59,7 +59,7 @@
         <input type="hidden" id="del_id" value="">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="Delete()">Ya</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id='yes'>Ya</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
       </div>
     </div>
