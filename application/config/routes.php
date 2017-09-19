@@ -10,7 +10,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['checkwebtoken'] = 'authentication/authentication/checkwebtoken';
 $route['auth/submit_login'] = 'authentication/authentication/submit_login';
 // $route['admin/logout'] = 'authentication/authentication/logout';
-$route['login'] = 'authentication/authentication/login';
+$route['login'] = 'front/front/login';
 $route['admin/logout'] = 'admin/admin/logout';
 
 //DASHBOARD

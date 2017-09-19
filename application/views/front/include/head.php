@@ -1,84 +1,67 @@
-<!doctype html>
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><html lang="en" class="no-js"> <![endif]-->
-<html lang="en">
 
+<html>
 <head>
-
-  <!-- Basic -->
-  <title><?=$title_page?></title>
-
-  <!-- Define Charset -->
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+    <?php
+    if(isset($title_page)){
+      echo $title_page;
+    }
+    ?>
 
-  <!-- Responsive Metatag -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="<?= BACKEND_STATIC_FILES ?>/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?= BACKEND_STATIC_FILES ?>bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="<?= BACKEND_STATIC_FILES ?>bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?= BACKEND_STATIC_FILES ?>dist/css/AdminLTE.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+  folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="<?= BACKEND_STATIC_FILES ?>dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="<?= BACKEND_STATIC_FILES ?>bower_components/icheck/square/blue.css">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
-  <!-- Page Description and Author -->
-  <?php
-  if(isset($description)){
-  ?>
-  <meta name="description" content="<?=$description?>">
-  <? } else {
-  ?>
-  <meta name="description" content="<?=$footer['info']->site_description?>">
-  <?php
-  }
-  ?>
-  <meta name="author" content="<?=$footer['info']->site_name?>">
-
-  <!-- Bootstrap CSS  -->
-  <link rel="stylesheet" href="<?=FRONTEND_STATIC_FILES?>asset/css/bootstrap.min.css" type="text/css" media="screen">
-
-  <!-- Font Awesome CSS -->
-  <link rel="stylesheet" href="<?=FRONTEND_STATIC_FILES?>css/font-awesome.min.css" type="text/css" media="screen">
-
-  <!-- Slicknav -->
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/slicknav.css" media="screen">
-
-  <!-- Margo CSS Styles  -->
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/style.css" media="screen">
-
-  <!-- Responsive CSS Styles  -->
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/responsive.css" media="screen">
-
-  <!-- Css3 Transitions Styles  -->
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/animate.css" media="screen">
-
-  <!-- Color CSS Styles  -->
-  <!-- <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/red.css" title="red" media="screen" />
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/jade.css" title="jade" media="screen" /> -->
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/green.css" title="green" media="screen" />
-  <!-- <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/blue.css" title="blue" media="screen" />
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/beige.css" title="beige" media="screen" />
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/cyan.css" title="cyan" media="screen" />
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/orange.css" title="orange" media="screen" />
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/peach.css" title="peach" media="screen" />
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/pink.css" title="pink" media="screen" />
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/purple.css" title="purple" media="screen" />
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/sky-blue.css" title="sky-blue" media="screen" />
-  <link rel="stylesheet" type="text/css" href="<?=FRONTEND_STATIC_FILES?>css/colors/yellow.css" title="yellow" media="screen" /> -->
-
-  <!-- Margo JS  -->
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery.migrate.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/modernizrr.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>asset/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery.fitvids.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/owl.carousel.min.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/nivo-lightbox.min.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery.isotope.min.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery.appear.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/count-to.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery.textillate.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery.lettering.js"></script>
-  <!-- <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery.easypiechart.min.js"></script> -->
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery.nicescroll.min.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery.parallax.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/mediaelement-and-player.js"></script>
-  <script type="text/javascript" src="<?=FRONTEND_STATIC_FILES?>js/jquery.slicknav.js"></script>
-
-  <!--[if IE 8]><script src="<?=FRONTEND_STATIC_FILES?>http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  <!--[if lt IE 9]><script src="<?=FRONTEND_STATIC_FILES?>http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <script src="<?= BACKEND_STATIC_FILES ?>bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="<?= BACKEND_STATIC_FILES ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- SlimScroll -->
+  <script src="<?= BACKEND_STATIC_FILES ?>bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+  <!-- FastClick -->
+  <script src="<?= BACKEND_STATIC_FILES ?>bower_components/fastclick/lib/fastclick.js"></script>
+  <script src="<?= BACKEND_STATIC_FILES ?>bower_components/icheck/icheck.min.js"></script>
+  <script src="<?= BACKEND_STATIC_FILES ?>bower_components/jquery-md5/jquerymd5.js"></script>
+  <script src="<?= BACKEND_STATIC_FILES ?>bower_components/bootstrap/js/bootstrap-notify.js"></script>
+  <!-- AdminLTE App -->
+  <script src="<?= BACKEND_STATIC_FILES ?>dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="<?= BACKEND_STATIC_FILES ?>dist/js/demo.js"></script>
+  <script>
+  $(document).ready(function () {
+    $('.sidebar-menu').tree()
+  })
+  </script>
 </head>
+<body class="hold-transition skin-green-light layout-top-nav">
+<style type="text/css">
+  .crop-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 16px;     /* fallback */
+  max-height: 80px;   
+  text-align: justify;
+}
+</style>

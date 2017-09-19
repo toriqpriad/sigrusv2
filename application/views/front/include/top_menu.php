@@ -1,123 +1,55 @@
-<body>
 
-  <!-- Full Body Container -->
-  <div id="container">
-
-
-    <!-- Start Header Section -->
-    <div class="hidden-header"></div>
-    <header class="clearfix">
-
-      <!-- Start Top Bar -->
-      <div class="top-bar">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-7">
-              <!-- Start Contact Info -->
-              <ul class="contact-details">
-                <li><a href="#"><i class="fa fa-map-marker"></i> <?=$footer['info']->site_address?></a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> <?=$footer['info']->site_email?></a></li>
-                <li><a href="#"><i class="fa fa-phone"></i> <?=$footer['info']->site_contact?></a></li>
-                <li><a href="<?=base_url().'merchant/register/'?>"><i class="fa fa-user-plus"></i> Daftar Merchant </a></li>
-              </ul>
-              <!-- End Contact Info -->
-            </div>
-            <!-- .col-md-6 -->
-            <div class="col-md-5">
-              <!-- Start Social Links -->
-              <ul class="social-list">
-                <?php
-                if(isset($footer['social_media'])){
-                  foreach ($footer['social_media'] as $each){
-                ?>
-                <li>
-                  <a class="<?=$each['sc_name']?> itl-tooltip" data-placement="bottom" title="<?=$each['sc_name']?>" href="http://<?=$each['scm_url']?>"><i class="<?=$each['sc_icon']?>"></i></a>
-                </li>
-                <?php } } ?>
-              </ul>
-              </ul>
-              <!-- End Social Links -->
-            </div>
-            <!-- .col-md-6 -->
-          </div>
-          <!-- .row -->
+<div class="wrapper" >
+  <header class="main-header">
+    <nav class="navbar navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="../../index2.html" class="navbar-brand"><b>SIGRUS - PPG KOTA WISATA BATU</b></a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
         </div>
-        <!-- .container -->
-      </div>
-      <!-- .top-bar -->
-      <!-- End Top Bar -->
 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse pull-right" id="navbar-collapse">
+          <ul class="nav navbar-nav">
+            <?php
+            if (isset($menu)) {
+              foreach ($menu as $data) {
+                if ($active_page == $data ['page_name']) {
+                  ?>
+                  <li class="active"><a href="<?= $data['link'] ?>">
+                    <span><?= $data['label'] ?></span>
+                  </a></li>
+                  <?php
+                } else {
+                  ?>
+                  <li><a href="<?= $data['link'] ?>"> <span><?= $data['label'] ?></span>
+                  </a></li>
+                  <?php
 
-      <!-- Start  Logo & Naviagtion  -->
-      <div class="navbar navbar-default navbar-top">
-        <div class="container">
-          <div class="navbar-header">
-            <!-- Stat Toggle Nav Link For Mobiles -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <i class="fa fa-bars"></i>
-            </button>
-            <!-- End Toggle Nav Link For Mobiles -->
-            <a class="navbar-brand" href="<?=base_url()?>">
-              <?php
-              if(isset($footer['info']->logo)){  ?>
-              <img alt="" src="<?php echo $footer['info']->logo?>" style="width:100%;">
-              <?php } else {?>
-              <strong><?=$footer['info']->site_name?></strong>
-              <?php }?>
-            </a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <!-- Stat Search -->
-
-            <!-- End Search -->
-            <!-- Start Navigation List -->
-            <ul class="nav navbar-nav navbar-right">
-              <?php
-              if(isset($menu)){
-              foreach($menu as $each){
-                echo "<li>";
-                if($active_page == $each['page_name']){
-                  echo '<a href="'.$each["link"].'" class="active">'.$each['label'].'</a>';
-              } else {
-                echo '<a href="'.$each["link"].'">'.$each['label'].'</a>';
-              }
-              if(isset($each['sub'])){
-                echo '<ul class="dropdown">';
-                foreach($each['sub'] as $sub){
-                  echo '<li><a href="'.$sub->link.'">'.$sub->name.'</a></li>';
                 }
-                echo '</ul>';
+              }
+            }
+            ?>
 
-              }
-                echo "</li>";
-              }
-              }
-              ?>
-            </ul>
-            <!-- End Navigation List -->
-          </div>
+          </ul>
         </div>
-
-        <!-- Mobile Menu Start -->
-        <ul class="wpb-mobile-menu">
-          <?php
-          if(isset($menu)){
-          foreach($menu as $each){
-            echo "<li>";
-            if($active_page == $each['page_name']){
-              echo '<a href="'.$each["link"].'" class="active">'.$each['label'].'</a>';
-          } else {
-            echo '<a href="'.$each["link"].'">'.$each['label'].'</a>';
-          }
-            echo "</li>";
-          }
-          }
-          ?>
-        </ul>
-        <!-- Mobile Menu End -->
-
+        <div class="collapse navbar-collapse pull-right" id="navbar-collapse">
+          <ul class="nav navbar-nav">            
+            <!-- <?php 
+            if($title_page){              
+              echo "<li><a> <b>".$title_page." Page</b></a></li>";
+              echo "<li><a ><b> | </b></a></li>";
+            }
+            ?>            
+            <li><a href="" style='margin-top:5px;'><b><i class="fa fa-sign-out"></i></b></a></li> -->
+          </ul>
+        </div>
       </div>
-      <!-- End Header Logo & Naviagtion -->
-
-    </header>
-    <!-- End Header Section -->
+    </nav>
+  </header>
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="container">
+      <div class="row">

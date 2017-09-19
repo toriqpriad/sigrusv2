@@ -1,7 +1,9 @@
 function ServerPost(next_url,input,reload_action) {
-  $.notify({
-    message: '<i id="notif" class="fa fa-cog fa-spin"></i> Sedang memproses ... .',
-  }, {type: 'warning', delay: 50});
+  // $.notify({
+  //   message: '<i id="notif" class="fa fa-cog fa-spin"></i> Sedang memproses ... .',
+  // }, {type: 'warning', delay: 50});
+  $("#load").empty();
+  $("#load").append('<i id="notif" class="fa fa-refresh fa-spin"></i>');
   $.ajax({
     url: next_url,
     method: 'POST',
@@ -15,9 +17,13 @@ function ServerPost(next_url,input,reload_action) {
       setTimeout(function ()
       {
         if (response.response == 'OK') {
-          $.notify({
-            message: '<i class="fa fa-check"></i> ' + response.message,
-          }, {type: 'success'})
+          
+          // $("#load").append('<i id="notif" class="fa fa-check"></i> Sukses');
+          // $.notify({
+          //   message: '<i class="fa fa-check"></i> ' + response.message,
+          // }, {type: 'success'})
+          $("#load").empty();
+          $("#load").append('<i id="notif" style="color:green;" class="fa fa-check"></i>');
           if(response.data.level == 'A'){
             localStorage.setItem('admin_url', response.data.backend_url);
           } else if(response.data.level == 'T'){
@@ -30,9 +36,11 @@ function ServerPost(next_url,input,reload_action) {
             }, 1000);
           }
         } else {
-          $.notify({
-            message: '<i class="fa fa-genderless"></i> ' + response.message,
-          }, {type: 'danger'})
+          // $.notify({
+          //   message: '<i class="fa fa-genderless"></i> ' + response.message,
+          // }, {type: 'danger'})
+          $("#load").empty();
+          $("#load").append('<i id="notif" class="fa fa-warning" style="color:red;"></i> ');
           $.each(response.data['error'], function(index, item) {
             $.notify({
               message: '<i class="fa fa-genderless"></i> ' + item,

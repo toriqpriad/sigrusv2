@@ -4,16 +4,15 @@
         <div class="modal-content ">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Konfirmasi Keluar</h4>
+                <h4 class="modal-title" id="myModalLabel">Logout Confirmation</h4>
             </div>
-            <div class="modal-body">                
-                Yakin akan keluar ?
+            <div class="modal-body">
+                Are you sure to logout ?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link waves-effect" onclick="logoutProcess()">Ya</button>
-                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Tidak</button>
+                <button type="button" class="btn btn-success" onclick="logoutProcess()">Ya</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
             </div>
         </div>
     </div>
 </div>
-
