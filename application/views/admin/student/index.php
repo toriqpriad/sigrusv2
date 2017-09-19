@@ -32,6 +32,7 @@
                 <th>Alias</th>
                 <th>Kategori</th>
                 <th>Kontak</th>
+                <th>Status</th>
                 <th>Aktif</th>
                 <th>Update Terakhir</th>
                 <th>Aksi</th>
@@ -76,5 +77,5 @@
 
 
 <script>
-table_render();
+  table_render();
 </script>

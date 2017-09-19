@@ -29,9 +29,9 @@
                 <th>Nama</th>
                 <th>Gender</th>
                 <th>TPQ</th>
-                <th>Alias</th>
-                <th>Email</th>
+                <th>Alias</th>              
                 <th>Kontak</th>
+                <th>Status</th>
                 <th>Aktif</th>
                 <th>Update Terakhir</th>
                 <th>Aksi</th>

@@ -12,9 +12,9 @@ function table_render() {
       { data: 'name' },
       { data: 'gender' },
       { data: 'tpq_name'},
-      { data: 'tpq_alias'},
-      { data: 'email' },
+      { data: 'tpq_alias'},      
       { data: 'contact' },
+      { data: 'status' },
       { data: 'active' },
       { data: 'update_at' },
       { data: 'id' },
@@ -36,6 +36,16 @@ function table_render() {
       },
       {
         "render": function (data, type, row) {
+          if (data == 'S') {
+            return '<span class="text-danger">Lajang</span>';
+          } else {
+            return '<span class="text-success">Menikah</span>';
+          }
+        },
+        "targets": 6
+      },
+      {
+        "render": function (data, type, row) {
           if (data == 'A') {
             return '<span class="text-success">Aktif</span>';
           } else {
@@ -53,12 +63,12 @@ function table_render() {
       ]
     });
 
-table.on('order.dt search.dt', function () {
-  table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-    cell.innerHTML = i + 1;
-  });
-}).draw();
-}, 500)
+    table.on('order.dt search.dt', function () {
+      table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+        cell.innerHTML = i + 1;
+      });
+    }).draw();
+  }, 500)
 }
 
 function search(){
@@ -133,7 +143,7 @@ function search(){
       }, 1000);
     }
   });
-$('#btn_opt').append('<button class="pull-right btn btn-md btn-flat btn-success" id="download_btn" onclick="table2excel()"><i class="fa fa-download"></i>&nbsp; Download</button>');
+  $('#btn_opt').append('<button class="pull-right btn btn-md btn-flat btn-success" id="download_btn" onclick="table2excel()"><i class="fa fa-download"></i>&nbsp; Download Data XLS</button>');
 }
 
 

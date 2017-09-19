@@ -8,57 +8,57 @@ function table_render() {
     var table = $('.table1').DataTable({
       ajax: url + "student/json",
       columns: [
-        { data: null },
-        { data: 'name' },
-        { data: 'gender' },
-        { data: 'student_category'},
-        { data: 'contact' },
-        { data: 'status' },
-        { data: 'active' },
-        { data: 'update_at' },
-        { data: 'id' },
+      { data: null },
+      { data: 'name' },
+      { data: 'gender' },
+      { data: 'student_category'},
+      { data: 'contact' },
+      { data: 'status' },
+      { data: 'active' },
+      { data: 'update_at' },
+      { data: 'id' },
       ],
       dom: 'Bfrtip',
       buttons: [
 
       ],
       columnDefs: [
-        {
-          "render": function (data, type, row) {
-            if (data == 'M') {
-              return 'Laki-Laki';
-            } else {
-              return 'Perempuan';
-            }
-          },
-          "targets": 2
+      {
+        "render": function (data, type, row) {
+          if (data == 'M') {
+            return 'Laki-Laki';
+          } else {
+            return 'Perempuan';
+          }
         },
-        {
-          "render": function (data, type, row) {
-            if (data == 'S') {
-              return '<span class="text-danger">Lajang</span>';
-            } else {
-              return '<span class="text-success">Menikah</span>';
-            }
-          },
-          "targets": 5
+        "targets": 2
+      },
+      {
+        "render": function (data, type, row) {
+          if (data == 'S') {
+            return '<span class="text-danger">Lajang</span>';
+          } else {
+            return '<span class="text-success">Menikah</span>';
+          }
         },
-        {
-          "render": function (data, type, row) {
-            if (data == 'A') {
-              return '<span class="text-success">Aktif</span>';
-            } else {
-              return '<span class="text-warning">Non Aktif</span>';
-            }
-          },
-          "targets": 6
+        "targets": 5
+      },
+      {
+        "render": function (data, type, row) {
+          if (data == 'A') {
+            return '<span class="text-success">Aktif</span>';
+          } else {
+            return '<span class="text-warning">Non Aktif</span>';
+          }
         },
-        {
-          "render": function (data, type, row) {
-            return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button  class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\')">Hapus</button>';
-          },
-          "targets": 8
+        "targets": 6
+      },
+      {
+        "render": function (data, type, row) {
+          return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button   class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\',this)">Hapus</button>';
         },
+        "targets": 8
+      },
       ]
     });
 
@@ -139,114 +139,119 @@ function search(){
               "<td>"+item.active+"</td>"+
               "<td>"+item.update_at+"</td>"+
               "</tr>");
-              no++ }) ;
-            } else {
+            no++ }) ;
+        } else {
 
-            }
-          }, 1000);
         }
-      });
-      $('#btn_opt').append('<button class="pull-right btn btn-md btn-flat btn-success" id="download_btn" onclick="table2excel()"><i class="fa fa-download"></i>&nbsp; Download</button>');
+      }, 1000);
     }
+  });
+  $('#btn_opt').append('<button class="pull-right btn btn-md btn-flat btn-success" id="download_btn" onclick="table2excel()"><i class="fa fa-download"></i>&nbsp; Download Data XLS</button>');
+}
 
 
-    function table2excel(){
-      $(".table1").table2excel({
+function table2excel(){
+  $(".table1").table2excel({
         // exclude CSS class
         exclude: ".table1",
         name: "Worksheet Name",
         filename: "Data Siswa " + new Date() + ".xlsx" //do not include extension
       });
-    }
+}
 
-    function post() {
-      var name = $('#name').val();
-      empty_validate(name, 'Nama');
-      var student_category = $('#student_category').val();
-      var status = $('#status').val();
-      var contact = $('#contact').val();
-      var email = $('#email').val();
-      var addr = $('#address').val();
-      var foto = $('#logo').prop('files')[0];
-      var gender = $('#gender').val();
-      var place = $('#place_birth').val();
-      var date = $('#date_birth').val();
-      var input = new FormData();
-      input.append('name', name);
-      input.append('gender', gender);
-      input.append('address', addr);
-      input.append('place', place);
-      input.append('date', date);
-      input.append('student_category', student_category);
-      input.append('status', status);
-      input.append('contact', contact);
-      input.append('email', email);
-      input.append('foto', foto);
-      var post_url = 'student/post';
-      ServerPost(post_url, input, true);
-    }
+function post() {
+  var name = $('#name').val();
+  empty_validate(name, 'Nama');
+  var student_category = $('#student_category').val();
+  var status = $('#status').val();
+  var contact = $('#contact').val();
+  var email = $('#email').val();
+  var addr = $('#address').val();
+  var foto = $('#logo').prop('files')[0];
+  var gender = $('#gender').val();
+  var place = $('#place_birth').val();
+  var date = $('#date_birth').val();
+  var input = new FormData();
+  input.append('name', name);
+  input.append('gender', gender);
+  input.append('address', addr);
+  input.append('place', place);
+  input.append('date', date);
+  input.append('student_category', student_category);
+  input.append('status', status);
+  input.append('contact', contact);
+  input.append('email', email);
+  input.append('foto', foto);
+  var post_url = 'student/post';
+  ServerPost(post_url, input, true);
+}
 
-    function update() {
-      var id = $('#edit_id').val();
-      var name = $('#name').val();
-      empty_validate(name, 'Nama');
-      var tpq_last = $('#tpq_last_id').val();
-      var student_category = $('#student_category').val();
-      var contact = $('#contact').val();
-      var email = $('#email').val();
-      var mother = $('#mother').val();
-      var father = $('#father').val();
-      var addr = $('#address').val();
-      var gender = $('#gender').val();
-      var active = $('#active').val();
-      var status = $('#status').val();
-      var place = $('#place_birth').val();
-      var date = $('#date_birth').val();
-      var education = $('#education').val();
-      var education_detail = $('#education_detail').val();
-      var old_foto = $('#foto_old').val();
-      var new_foto = $('#foto_new').val();
-      if (new_foto != undefined) {
-        var foto = $('#foto').prop('files')[0];
-      } else {
-        var foto = 'old';
-      }
+function update() {
+  var id = $('#edit_id').val();
+  var name = $('#name').val();
+  empty_validate(name, 'Nama');
+  var tpq_last = $('#tpq_last_id').val();
+  var student_category = $('#student_category').val();
+  var contact = $('#contact').val();
+  var email = $('#email').val();
+  var mother = $('#mother').val();
+  var father = $('#father').val();
+  var addr = $('#address').val();
+  var gender = $('#gender').val();
+  var active = $('#active').val();
+  var status = $('#status').val();
+  var place = $('#place_birth').val();
+  var date = $('#date_birth').val();
+  var education = $('#education').val();
+  var education_detail = $('#education_detail').val();
+  var old_foto = $('#foto_old').val();
+  var new_foto = $('#foto_new').val();
+  if (new_foto != undefined) {
+    var foto = $('#foto').prop('files')[0];
+  } else {
+    var foto = 'old';
+  }
 
-      var input = new FormData();
-      input.append('id', id);
-      input.append('name', name);
-      input.append('gender', gender);
-      input.append('address', addr);
-      input.append('tpq_last_id', tpq_last);
-      input.append('place', place);
-      input.append('date', date);
-      input.append('father', father);
-      input.append('mother', mother);
-      input.append('education', education);
-      input.append('education_detail', education_detail);
-      input.append('active', active);
-      input.append('status', status);
-      input.append('student_category', student_category);
-      input.append('contact', contact);
-      input.append('email', email);
-      input.append('foto', foto);
-      input.append('old_foto', old_foto);
-      var post_url = 'student/update';
-      ServerPost(post_url, input,true);
-    }
+  var input = new FormData();
+  input.append('id', id);
+  input.append('name', name);
+  input.append('gender', gender);
+  input.append('address', addr);
+  input.append('tpq_last_id', tpq_last);
+  input.append('place', place);
+  input.append('date', date);
+  input.append('father', father);
+  input.append('mother', mother);
+  input.append('education', education);
+  input.append('education_detail', education_detail);
+  input.append('active', active);
+  input.append('status', status);
+  input.append('student_category', student_category);
+  input.append('contact', contact);
+  input.append('email', email);
+  input.append('foto', foto);
+  input.append('old_foto', old_foto);
+  var post_url = 'student/update';
+  ServerPost(post_url, input,true);
+}
 
 
-    function DeleteModal(link) {
-      $('#deleteModal').modal(
-        { backdrop: false }
-      );
-      $('#del_id').val(link);
-    }
+function DeleteModal(link,row) {  
+  $('#deleteModal').modal(
+    { backdrop: false }
+    );
+  $('#del_id').val(link);
+  $('#yes').click(function(){
+    Delete(row);
+  })
 
-    function Delete() {
-      var input = new FormData();
-      input.append('id', $('#del_id').val());
-      var delete_url = 'gallery/delete';
-      ServerPost(delete_url, input);
-      table.ajax.reload();
-    }
+}
+
+function Delete(row) {
+  var input = new FormData();
+  input.append('id', $('#del_id').val());
+  var delete_url = 'student/delete';
+  ServerPost(delete_url, input);  
+  $(row).closest('tr').remove();
+}
+

@@ -15,6 +15,7 @@ function table_render() {
       { data: 'tpq_alias'},
       { data: 'student_category'},
       { data: 'contact' },
+      { data: 'status' },
       { data: 'active' },
       { data: 'update_at' },
       { data: 'id' },
@@ -36,29 +37,39 @@ function table_render() {
       },
       {
         "render": function (data, type, row) {
-          if (data == 'A') {
-            return '<span class="text-success">Aktif</span>';
+          if (data == 'S') {
+            return '<span class="text-danger">Lajang</span>';
           } else {
-            return '<span class="text-warning">Non Aktif</span>';
+            return '<span class="text-success">Menikah</span>';
           }
         },
         "targets": 7
       },
       {
         "render": function (data, type, row) {
+          if (data == 'A') {
+            return '<span class="text-success">Aktif</span>';
+          } else {
+            return '<span class="text-warning">Non Aktif</span>';
+          }
+        },
+        "targets": 8
+      },
+      {
+        "render": function (data, type, row) {
           return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button   class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\',this)">Hapus</button>';
         },
-        "targets": 9
+        "targets": 10
       },
       ]
     });
 
-table.on('order.dt search.dt', function () {
-  table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-    cell.innerHTML = i + 1;
-  });
-}).draw();
-}, 500)
+    table.on('order.dt search.dt', function () {
+      table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+        cell.innerHTML = i + 1;
+      });
+    }).draw();
+  }, 500)
 }
 
 
@@ -139,7 +150,7 @@ function search(){
       }, 1000);
     }
   });
-$('#btn_opt').append('<button class="pull-right btn btn-md btn-flat btn-success" id="download_btn" onclick="table2excel()"><i class="fa fa-download"></i>&nbsp; Download</button>');
+  $('#btn_opt').append('<button class="pull-right btn btn-md btn-flat btn-success" id="download_btn" onclick="table2excel()"><i class="fa fa-download"></i>&nbsp; Download Data XLS</button>');
 }
 
 

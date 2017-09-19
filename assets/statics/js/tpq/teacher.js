@@ -57,7 +57,7 @@ function table_render() {
       },
       {
         "render": function (data, type, row) {
-          return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button  class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\')">Hapus</button>';
+          return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button   class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\',this)">Hapus</button>';
         },
         "targets": 8
       },
@@ -141,7 +141,7 @@ function search(){
       }, 1000);
     }
   });
-$('#btn_opt').append('<button class="pull-right btn btn-md btn-flat btn-success" id="download_btn" onclick="table2excel()"><i class="fa fa-download"></i>&nbsp; Download</button>');
+$('#btn_opt').append('<button class="pull-right btn btn-md btn-flat btn-success" id="download_btn" onclick="table2excel()"><i class="fa fa-download"></i>&nbsp; Download Data XLS</button>');
 }
 
 
@@ -225,17 +225,21 @@ function update() {
 }
 
 
-function DeleteModal(link) {
+function DeleteModal(link,row) {  
   $('#deleteModal').modal(
     { backdrop: false }
     );
   $('#del_id').val(link);
+  $('#yes').click(function(){
+    Delete(row);
+  })
+
 }
 
-function Delete() {
+function Delete(row) {
   var input = new FormData();
   input.append('id', $('#del_id').val());
-  var delete_url = 'gallery/delete';
-  ServerPost(delete_url, input);
-  table.ajax.reload();
+  var delete_url = 'teacher/delete';
+  ServerPost(delete_url, input);  
+  $(row).closest('tr').remove();
 }

@@ -385,30 +385,26 @@ class student extends tpq
   }
 
   public function delete()
-  {
-    $id_delete = $this->input->post("id");
-    // print_r($id);exit();
-    $params_delete = new stdClass();
-    $where1 = array("where_column" => 'student_id', "where_value" => $id_delete);
-    $params_delete->where_tables = array($where1);
-    $params_delete->table = 'student_images';
-    $delete = $this->data_model->delete($params_delete);
+  {    
 
+    $id = $this->input->post('id');
+    $params = new stdClass();
+    $params->dest_table_as = 'student as t';
+    $params->select_values = array('t.photo');
+    $params->where_tables = array(array("where_column" => 't.id', "where_value" => $id));
+    $get = $this->data_model->get($params);
+    $photo = $get['results'][0]->photo;
+    if($photo){
+      $file = BACKEND_IMAGE_UPLOAD_FOLDER.'profile/'.$photo;
+      $unlink_files = unlink($file);
+    }
     $delete = new stdClass();
-    $where1 = array("where_column" => 'id', "where_value" => $id_delete);
+    $where1 = array("where_column" => 'id', "where_value" => $id);
     $delete->where_tables = array($where1);
     $delete->table = 'student';
     $delete_student = $this->data_model->delete($delete);
 
-    $dir = BACKEND_IMAGE_UPLOAD_FOLDER.'student/'.$id_delete.'/';
-    $files = glob($dir.'*');
-
-    foreach ($files as $file) {
-      $unlink_files = unlink($file);
-    }
-
-    $rm_dir = rmdir($dir);
-
+    
     if ($delete_student['response'] == OK_STATUS) {
       $result = response_success();
     } else {
