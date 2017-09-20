@@ -88,8 +88,9 @@
           ?>
         </div>
         </div>
-        <div class="box-footer">
+        <div class="box-footer">          
           <input type="hidden" id="edit_id" value='<?=$records->id?>'>
+          <a href="javascript:history.back()"  class="btn btn-default btn-flat btn-fill btn-wd pull-left" ><i class="fa fa-arrow-left"></i>&nbsp;Kembali</a>
           <button type="submit" class="pull-right btn btn-flat btn-success" onclick="update()"><i class="fa fa-save"></i>&nbsp; Simpan</button>
         </div>
         <!-- /.box -->

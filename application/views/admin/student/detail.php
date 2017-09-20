@@ -75,7 +75,7 @@
                   <div class="col-xs-8">
                     <input type="text" class="form-control" id="date_birth" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" value="<?=$records->date_birth?>">
                     <script>
-                    $('#date_birth').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+                      $('#date_birth').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
                     </script>
                   </div>
                 </div>
@@ -279,11 +279,11 @@
             <br><br>
 
             <script>
-            var load_foto = function (event) {
-              var output_foto = document.getElementById('output_foto');
-              output_foto.src = URL.createObjectURL(event.target.files[0]);
-              $('#foto_new').val(event.target.files[0].name);
-            };
+              var load_foto = function (event) {
+                var output_foto = document.getElementById('output_foto');
+                output_foto.src = URL.createObjectURL(event.target.files[0]);
+                $('#foto_new').val(event.target.files[0].name);
+              };
             </script>
           </div>
         </div>
@@ -300,6 +300,7 @@
       <div class="box-footer">
         <input type="hidden" id="edit_id" value="<?=$records->id?>">
         <input type="hidden" id="tpq_last_id" value="<?=$records->id_tpq?>">
+        <a href="javascript:history.back()"  class="btn btn-default btn-flat btn-fill btn-wd pull-left" ><i class="fa fa-arrow-left"></i>&nbsp;Kembali</a>
         <button type="submit" class="pull-right btn btn-flat btn-success" onclick="update()"><i class="fa fa-save"></i>&nbsp; Simpan</button>
       </div>
 
@@ -313,5 +314,5 @@
 
 </div>
 <script>
-$('.select2').select2()
+  $('.select2').select2()
 </script>

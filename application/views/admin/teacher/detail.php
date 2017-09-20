@@ -269,7 +269,7 @@
         <div class="box-footer">
           <input type="hidden" id="edit_id" value="<?=$records->id?>">
           <input type="hidden" id="tpq_last_id" value="<?=$records->id_tpq?>">
-          <a href="<?=base_url().'admin/teacher/'?>" class="pull-left btn btn-flat btn-default"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+          <a href="javascript:history.back()"  class="btn btn-default btn-flat btn-fill btn-wd pull-left" ><i class="fa fa-arrow-left"></i>&nbsp;Kembali</a>
           <button type="submit" class="pull-right btn btn-flat btn-success" onclick="update()"><i class="fa fa-save"></i>&nbsp; Simpan</button>
         </div>
 

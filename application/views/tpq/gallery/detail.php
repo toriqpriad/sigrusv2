@@ -64,7 +64,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="text-left">
-                <a href="<?=base_url().'admin/gallery/'?>"  class="btn btn-warning btn-fill btn-wd" onclick="">Kembali</a>
+              <a href="javascript:history.back()"  class="btn btn-default btn-flat btn-fill btn-wd pull-left" ><i class="fa fa-arrow-left"></i>&nbsp;Kembali</a>
               </div>
             </div>
             <div class="col-md-6">
