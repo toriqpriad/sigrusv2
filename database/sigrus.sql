@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 14, 2017 at 04:08 AM
+-- Generation Time: Sep 22, 2017 at 04:06 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -41,21 +41,10 @@ CREATE TABLE `access_log` (
 --
 
 INSERT INTO `access_log` (`id`, `ip_address`, `platform`, `browser`, `date`) VALUES
-(1, '127.0.0.1', 'Linux', 'Chrome', '11-08-2017'),
-(2, '127.0.0.1', 'Linux', 'Chrome', '12-08-2017'),
-(3, '127.0.0.1', 'Linux', 'Chrome', '13-08-2017'),
-(4, '127.0.0.1', 'Linux', 'Chrome', '14-08-2017'),
-(5, '127.0.0.1', 'Linux', 'Chrome', '15-08-2017'),
-(6, '::1', 'Linux', 'Chrome', '16-08-2017'),
-(7, '::1', 'Linux', 'Chrome', '17-08-2017'),
-(8, '::1', 'Linux', 'Chrome', '19-08-2017'),
-(9, '::1', 'Linux', 'Chrome', '25-08-2017'),
-(10, '::1', 'Linux', 'Chrome', '26-08-2017'),
-(11, '::1', 'Linux', 'Chrome', '27-08-2017'),
-(12, '::1', 'Linux', 'Chrome', '28-08-2017'),
-(13, '::1', 'Linux', 'Chrome', '29-08-2017'),
-(14, '::1', 'Linux', 'Chrome', '13-09-2017'),
-(15, '::1', 'Linux', 'Chrome', '14-09-2017');
+(1, '::1', 'Linux', 'Chrome', '19-09-2017'),
+(2, '::1', 'Linux', 'Chrome', '20-09-2017'),
+(3, '::1', 'Linux', 'Chrome', '21-09-2017'),
+(4, '::1', 'Linux', 'Chrome', '22-09-2017');
 
 -- --------------------------------------------------------
 
@@ -124,8 +113,48 @@ CREATE TABLE `pc` (
 --
 
 INSERT INTO `pc` (`id`, `name`, `contact`, `address`, `update_at`) VALUES
-(1, 'PC Bumiaji', '089623993782', '', '16-08-2017 05:08'),
-(2, 'PC Junrejo', '089623993782', '', '16-08-2017 05:08');
+(1, 'PC Bumiaji', '089623993782', '', '16-08-2017 05:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `position`
+--
+
+CREATE TABLE `position` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `description` text NOT NULL,
+  `update_at` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `position`
+--
+
+INSERT INTO `position` (`id`, `name`, `description`, `update_at`) VALUES
+(1, 'Ketua', '', '19-09-2017 11:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `position_person`
+--
+
+CREATE TABLE `position_person` (
+  `id` int(11) NOT NULL,
+  `position_id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `contact` varchar(20) NOT NULL,
+  `update_at` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `position_person`
+--
+
+INSERT INTO `position_person` (`id`, `position_id`, `name`, `contact`, `update_at`) VALUES
+(1, 1, 'H. Agus', '', '19-09-2017 11:09');
 
 -- --------------------------------------------------------
 
@@ -199,7 +228,8 @@ INSERT INTO `socmed` (`id`, `name`, `icon`, `update_at`) VALUES
 (1, 'Facebook', 'fa fa-facebook', '24-08-2017 10:08'),
 (2, 'Twitter', 'fa fa-twitter', '24-08-2017 10:08'),
 (3, 'Youtube', 'fa fa-youtube', '24-08-2017 04:08'),
-(4, 'YOutube', 'fa fa-youtube', '25-08-2017 01:08');
+(4, 'YOutube', 'fa fa-youtube', '25-08-2017 01:08'),
+(5, 'Klontang', '', '15-09-2017 05:09');
 
 -- --------------------------------------------------------
 
@@ -234,14 +264,7 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `id_tpq`, `name`, `link`, `gender`, `student_category`, `place_birth`, `date_birth`, `mother`, `father`, `education`, `education_detail`, `email`, `contact`, `address`, `photo`, `status`, `active`, `update_at`) VALUES
-(3, 40, 'Alen', 'alen', 'M', 'R', 'Malang', '08/08/1998', 'Kristin', 'Muhyi', 'SMA', 'Kelas 1 SMAN 1 BATU', 'alen@gmail.com', '089623993782', 'JUnrejo', 'snIbTB.jpg', 'S', 'N', '27-08-2017 11:08'),
-(4, 41, 'Ringgo', 'ringgo', 'M', 'P', 'Batu', '10/10/1999', 'Uus', 'Supri', 'SMA', 'Kelas 1 SMA 1 Batu', 'ringgo@gmail.com', '089623993782', 'Junrejo', 'ohoc8H.png', 'S', 'A', '27-08-2017 11:08'),
-(5, 4, 'Bima', 'bima', '', 'C', '', '', '', '', '', '', '', '', '', '', 'M', 'A', '28-08-2017 12:08'),
-(6, 4, 'paijo', 'paijo', 'F', 'R', 'Malang', '08/08/1999', 'tukiyem', 'paimin', 'Sarjana', 'S1 UMM Jurusan Teknik Informatika', 'paijo@gmail.com', '089623993782', 'test123', 'fpqmNg.png', 'S', 'A', '29-08-2017 09:08'),
-(7, 41, 'Rifki', 'rifki', 'M', 'R', 'Sidoarj0', '11/11/1991', '', '', 'SD', '', 'rikfi.chandra@gmail.com', '089623993782', 'sidoarjo', 'QVXIUc.png', 'M', 'N', '29-08-2017 09:08'),
-(8, 43, 'Wini', 'wini', '', 'R', 'Batu', '09/08/1995', '', '', '', '', '', '', '', 'zNFpaZ.png', 'M', 'A', '31-08-2017 08:08'),
-(9, 43, 'Saras', 'saras', 'F', 'R', 'Batu', '09/09/1995', '', '', '', '', '', '', '', '', 'M', 'A', '31-08-2017 09:08'),
-(10, 43, 'Haris Yudhistiro', 'harisyudhistiro', 'M', 'R', 'Batu', '12/12/1994', 'Qonit', 'Agus', 'SMA', 'SMA Negri 1 Batu', 'haris.yudistiro@gmail.com', '089623993782', 'Gondang', 'OavGFm.png', 'S', 'A', '31-08-2017 10:08');
+(1, 45, 'Belgies', 'belgies', 'F', 'C', 'Malang', '11/11/2007', '', '', 'SD', '', '', '', '', 'kKQTuq.jpg', 'S', 'A', '20-09-2017 09:09');
 
 -- --------------------------------------------------------
 
@@ -265,7 +288,7 @@ CREATE TABLE `teacher` (
   `address` text,
   `email` varchar(45) DEFAULT NULL,
   `photo` varchar(45) DEFAULT NULL,
-  `active` enum('A','N') NOT NULL DEFAULT 'N',
+  `active` enum('A','N') NOT NULL DEFAULT 'A',
   `update_at` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabel untuk Pengajar';
 
@@ -274,10 +297,7 @@ CREATE TABLE `teacher` (
 --
 
 INSERT INTO `teacher` (`id`, `id_tpq`, `name`, `link`, `gender`, `place_birth`, `date_birth`, `education`, `education_detail`, `teacher_category`, `status`, `contact`, `address`, `email`, `photo`, `active`, `update_at`) VALUES
-(13, 41, 'Ilma', 'ilma', 'F', 'Magetan', '11/11/1991', NULL, NULL, 'MT', 'S', '089623993782', 'Junrejo', 'tulas@gmail.com', 'yxFKQS.jpg', 'A', '26-08-2017 01:08'),
-(14, 41, 'Jamaludin', 'jamaludin', 'M', 'Malang', '10/10/2000', 'SMA', 'SMA Budi Utomo Perak Jombang', 'MS', 'M', '089623993782', 'Junrejo', 'jamal@gmail.com', 'B7na0j.jpg', 'A', '29-08-2017 08:08'),
-(15, 41, 'testing', 'testing', 'M', '', '', 'SD', '', 'PB', 'S', '', '', '', '', 'N', '29-08-2017 06:08'),
-(16, 43, 'Reno Fachru', 'renofachru', 'M', 'Batu', '09/09/1996', 'SD', '', 'MT', 'M', '', '', '', 'qHNDPf.png', 'N', '31-08-2017 09:08');
+(1, 45, 'Fani', 'fani', 'F', 'Malang', '11/11/1997', 'SD', '', 'MT', 'S', '', '', '', 'SANh74.jpg', 'A', '19-09-2017 10:09');
 
 -- --------------------------------------------------------
 
@@ -304,11 +324,7 @@ CREATE TABLE `tpq` (
 --
 
 INSERT INTO `tpq` (`id`, `id_pc`, `name`, `link`, `email`, `contact`, `address`, `alias`, `logo`, `cover`, `update_at`) VALUES
-(4, 1, 'Al Bayyinah', 'albayyinah', '', '', '', 'Ngantang', '', '', '28-08-2017 12:08'),
-(40, 1, 'Al-Muflihun', 'almuflihun', 'muflihun@gmail.com', '089623993782', '', 'Sisir 1', 'UjddXt.jpg', 'wWVJ7G.png', '16-08-2017 05:08'),
-(41, 2, 'Al-Furqon', 'alfurqon', 'junrejo@ymail.com', '089623993782', 'junrejo', 'Areng Areng', '7SsiWs.png', 'gTqVmH.png', '31-08-2017 04:08'),
-(42, 1, 'Al-Maidah', 'almaidah', '', '', '', 'Pujon', '', '', '31-08-2017 08:08'),
-(43, 2, 'Manshurin', 'manshurin', '', '', '', 'Sumbersari', '', '', '31-08-2017 08:08');
+(45, 1, 'Al-Furqon', 'alfurqon', '', '', '', 'Pandan', '', '', '17-09-2017 01:09');
 
 -- --------------------------------------------------------
 
@@ -328,7 +344,7 @@ CREATE TABLE `tpq_position` (
 --
 
 INSERT INTO `tpq_position` (`id`, `name`, `description`, `update_at`) VALUES
-(1, 'Ketua', '', ''),
+(1, 'Ketua', '', '16-09-2017 06:09'),
 (2, 'Sekretaris', '', ''),
 (3, 'Bendahara', '', ''),
 (4, 'Pembina', '', ''),
@@ -354,26 +370,12 @@ CREATE TABLE `tpq_position_person` (
 --
 
 INSERT INTO `tpq_position_person` (`id`, `id_tpq`, `id_tpq_position`, `name`, `update_at`) VALUES
-(189, 40, 1, '', '16-08-2017 05:08'),
-(190, 40, 2, '', '16-08-2017 05:08'),
-(191, 40, 3, '', '16-08-2017 05:08'),
-(192, 40, 4, '', '16-08-2017 05:08'),
-(193, 40, 5, '', '16-08-2017 05:08'),
-(194, 40, 6, '', '16-08-2017 05:08'),
-(217, 41, 1, 'Aku', '31-08-2017 04:08'),
-(218, 41, 5, 'Kamu', '31-08-2017 04:08'),
-(219, 42, 1, '', '31-08-2017 08:08'),
-(220, 42, 2, '', '31-08-2017 08:08'),
-(221, 42, 3, '', '31-08-2017 08:08'),
-(222, 42, 4, '', '31-08-2017 08:08'),
-(223, 42, 5, '', '31-08-2017 08:08'),
-(224, 42, 6, '', '31-08-2017 08:08'),
-(231, 43, 1, 'Reno', '31-08-2017 09:08'),
-(232, 43, 2, 'Saras', '31-08-2017 09:08'),
-(233, 43, 3, 'Wini', '31-08-2017 09:08'),
-(234, 43, 4, 'Haris', '31-08-2017 09:08'),
-(235, 43, 5, 'Viki', '31-08-2017 09:08'),
-(236, 43, 6, 'Agus', '31-08-2017 09:08');
+(267, 45, 1, 'Arief', '17-09-2017 01:09'),
+(268, 45, 2, 'Rasyeda', '17-09-2017 01:09'),
+(269, 45, 3, 'Belgies', '17-09-2017 01:09'),
+(270, 45, 4, 'Mahar', '17-09-2017 01:09'),
+(271, 45, 5, 'Hari', '17-09-2017 01:09'),
+(272, 45, 6, 'Sabiq', '17-09-2017 01:09');
 
 -- --------------------------------------------------------
 
@@ -400,7 +402,10 @@ INSERT INTO `user` (`id`, `username`, `password`, `level`, `id_level`, `status`,
 (44, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'A', 0, 'E', '', ''),
 (47, 'alfurqon', '21232f297a57a5a743894a0e4a801fc3', 'T', 41, 'N', '', ''),
 (48, 'almaidah42', '0021ce629d4490d76a664d98d270ffb4', 'T', 42, 'E', '', '01-09-2017 04:09'),
-(49, 'manshurin43', '3dc07fe59c8262b0a53d0190a8da4fb9', 'T', 43, 'N', '', '31-08-2017 08:08');
+(49, 'manshurin43', '3dc07fe59c8262b0a53d0190a8da4fb9', 'T', 43, 'N', '', '31-08-2017 08:08'),
+(50, 'almaun44', 'c0aa052970a7f4b7043af36d79ef68e4', 'T', 44, 'N', '', '15-09-2017 01:09'),
+(51, 'alfurqon45', '4d829bb3214e66d29652f08c55d3e2e9', 'T', 45, 'N', '', '16-09-2017 05:09'),
+(52, 'alamin46', '70688a68fd5a443275a858ebe9d7099f', 'T', 46, 'N', '', '16-09-2017 05:09');
 
 --
 -- Indexes for dumped tables
@@ -429,6 +434,19 @@ ALTER TABLE `activity_image`
 --
 ALTER TABLE `pc`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `position`
+--
+ALTER TABLE `position`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `position_person`
+--
+ALTER TABLE `position_person`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `position_id` (`position_id`);
 
 --
 -- Indexes for table `setting`
@@ -499,7 +517,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `access_log`
 --
 ALTER TABLE `access_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `activity`
 --
@@ -514,7 +532,17 @@ ALTER TABLE `activity_image`
 -- AUTO_INCREMENT for table `pc`
 --
 ALTER TABLE `pc`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `position`
+--
+ALTER TABLE `position`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `position_person`
+--
+ALTER TABLE `position_person`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `site_socmed`
 --
@@ -524,22 +552,22 @@ ALTER TABLE `site_socmed`
 -- AUTO_INCREMENT for table `socmed`
 --
 ALTER TABLE `socmed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tpq`
 --
 ALTER TABLE `tpq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `tpq_position`
 --
@@ -549,15 +577,21 @@ ALTER TABLE `tpq_position`
 -- AUTO_INCREMENT for table `tpq_position_person`
 --
 ALTER TABLE `tpq_position_person`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=237;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `position_person`
+--
+ALTER TABLE `position_person`
+  ADD CONSTRAINT `position_person_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `position` (`id`);
 
 --
 -- Constraints for table `student`
