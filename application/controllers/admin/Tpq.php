@@ -68,6 +68,8 @@ class tpq extends admin
         parent::display('admin/tpq/add', 'admin/tpq/function', false);
     }
 
+
+
     public function post()
     {
         $name = $this->input->post("name");
@@ -87,7 +89,7 @@ class tpq extends admin
             "link" => $link,
             "address" => $address,
             "update_at" => date('d-m-Y h:m')
-            );
+        );
         $dest_table = 'tpq';
         $add = $this->data_model->add($params_data, $dest_table);
         $tpq_id = $add["data"];
@@ -125,7 +127,7 @@ class tpq extends admin
                 "id_tpq_position" => $each->position_id,
                 "name" => "",
                 "update_at" => date('d-m-Y h:m')
-                );
+            );
             $dest_table = 'tpq_position_person';
             $add = $this->data_model->add($add_position_tpq, $dest_table);
             $add_position_tpq = "";
@@ -139,7 +141,7 @@ class tpq extends admin
                 "id_level" => $tpq_id,
                 "status" => 'N',
                 "update_at" => date('d-m-Y h:m')
-                );
+            );
             $login_table = 'user';
             $add = $this->data_model->add($add_login_tpq, $login_table);
         }
@@ -156,6 +158,24 @@ class tpq extends admin
             $result = response_custom($params);
         }
         echo json_encode($result);
+    }
+
+    public function get_this_student(){
+        $id = $this->input->post('id'); 
+        $params->dest_table_as = 'student as s';
+        $params->select_values = array('s.*');
+        $params->where_tables = array(array("where_column" => 's.id_tpq', "where_value" => $id));
+        $get = $this->data_model->get($params);
+        echo json_encode(array("data" => $get['results']));
+    }
+
+    public function get_this_teacher(){
+        $id = $this->input->post('id'); 
+        $params->dest_table_as = 'teacher as s';
+        $params->select_values = array('s.*');
+        $params->where_tables = array(array("where_column" => 's.id_tpq', "where_value" => $id));
+        $get = $this->data_model->get($params);
+        echo json_encode(array("data" => $get['results']));
     }
 
     public function detail()
@@ -203,7 +223,7 @@ class tpq extends admin
                 $get['results'][0]->username = $login_data->username;
                 $get['results'][0]->user_status = $login_data->user_status;
             }
-            $this->data['records'] = $get['results'][0];
+            $this->data['records'] = $get['results'][0];            
             $this->data['position'] = $get_pgrs['results'];
             $this->data['title_page'] = $get["results"][0]->name;
             parent::display('admin/tpq/detail', 'admin/tpq/function');
@@ -237,7 +257,7 @@ class tpq extends admin
             "link" => $link,
             "address" => $address,
             "update_at" => date('d-m-Y h:m')
-            );
+        );
         $where = array("where_column" => 'id', "where_value" => $id);
         $params_data->where_tables = array($where);
         $params_data->table_update = 'tpq';
@@ -309,7 +329,7 @@ class tpq extends admin
                     "id_tpq" => $id,
                     "name" => $data->position_person,
                     "update_at" => date('d-m-Y h:m')
-                    );
+                );
                 $dest_table_sc = 'tpq_position_person';
                 $add_sc = $this->data_model->add($new_data, $dest_table_sc);
             }

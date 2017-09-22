@@ -10,7 +10,9 @@
         <li class=""><a href="#pengurus" data-toggle="tab" aria-expanded="false">Pengurus</a></li>
         <li class=""><a href="#image" data-toggle="tab" aria-expanded="false">Logo & Cover</a></li>
         <li class><a href="#profil" data-toggle="tab" aria-expanded="false">Profil</a></li>
-        <li class><a href="#galeri" data-toggle="tab" aria-expanded="false">Galeri</a></li>
+        <li class><a href="#Kegiatan" data-toggle="tab" aria-expanded="false">Kegiatan</a></li>
+        <li class=""><a href="#siswa" data-toggle="tab" aria-expanded="false">Siswa</a></li>
+        <li class=""><a href="#pengajar" data-toggle="tab" aria-expanded="false">Pengajar</a></li>
         <li class="active"><a href="#index" data-toggle="tab" aria-expanded="true">Overview</a></li>
         <li class="pull-left header">
           <?php
@@ -154,11 +156,21 @@
             </tbody>
           </table>
         </div>
-        <div class="tab-pane" id="galeri">
-          Galeri
+        <div class="tab-pane" id="Kegiatan">
+          Kegiatan
         </div>
         <div class="tab-pane active" id="index">
           Overview
+        </div>
+
+        <div class="tab-pane " id="siswa">
+          <br><br>
+          <center><i class="fa fa-3x fa-spin fa-refresh"></i></center>
+        </div>
+
+        <div class="tab-pane" id="pengajar">
+          <br><br>
+          <center><i class="fa fa-3x fa-spin fa-refresh"></i></center>
         </div>
         <!-- /.tab-pane -->
       </div>
@@ -179,7 +191,7 @@
 
 </div>
 <script>
-$('.select2').select2()
+$('.select2').select2();
 </script>
 
 <div class="modal fade"  aria-labelledby="myModalLabel" id="PasswordModal" role="dialog">
