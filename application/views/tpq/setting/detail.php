@@ -2,7 +2,7 @@
 <div class="content-wrapper">
 
   <section class="content">
-    <!-- Default box -->
+<br>
     <div class="panel panel-default">
 
       <h3 class="panel-heading panel-title">
@@ -67,8 +67,8 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>Kontak</label>
-                <input type="text" class="form-control" value="<?=$records->contact?>" id="contact">
+                <label>Email</label>
+                <input type="text" class="form-control" value="<?=$records->email?>" id="email">
               </div>
             </div>
             <div class="col-md-6">
@@ -90,7 +90,7 @@
             <div class='col-md-6'>
               <div class="form-group">
                 <label>Password</label><br>
-                <button class="btn btn-flat btn-danger btn-md">Ganti Password</button>
+                <button class="btn btn-flat btn-danger btn-md" onclick="showPassword()">Ganti Password</button>
               </div>
             </div>
           </div>
@@ -108,11 +108,11 @@
                 <br><br>
 
                 <script>
-                var load_logo = function (event) {
-                  var output_logo = document.getElementById('output_logo');
-                  output_logo.src = URL.createObjectURL(event.target.files[0]);
-                  $('#logo_new').val(event.target.files[0].name);
-                };
+                  var load_logo = function (event) {
+                    var output_logo = document.getElementById('output_logo');
+                    output_logo.src = URL.createObjectURL(event.target.files[0]);
+                    $('#logo_new').val(event.target.files[0].name);
+                  };
                 </script>
               </div>
             </div>
@@ -128,11 +128,11 @@
                 <br><br>
 
                 <script>
-                var load_cover = function (event) {
-                  var output_cover = document.getElementById('output_cover');
-                  output_cover.src = URL.createObjectURL(event.target.files[0]);
-                  $('#cover_new').val(event.target.files[0].name);
-                };
+                  var load_cover = function (event) {
+                    var output_cover = document.getElementById('output_cover');
+                    output_cover.src = URL.createObjectURL(event.target.files[0]);
+                    $('#cover_new').val(event.target.files[0].name);
+                  };
                 </script>
               </div>
             </div>

@@ -2,16 +2,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h4>
-
-        <?php
-        if(isset($title_page)){
-          echo $title_page;
-        }
-      ?>
-
-    </h4>
-
+      <br>
     </section>
 
     <!-- Main content -->

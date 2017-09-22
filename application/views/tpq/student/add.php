@@ -8,17 +8,7 @@
     <section class="content">
       <!-- Default box -->
       <div class="box box-success">
-        <div class="box-header with-border">
-          <h3 class="box-title">
-            <b>
-              <?php
-              if (isset($title_page)) {
-                echo $title_page;
-              }
-              ?>
-            </b>
-          </h3>
-        </div>
+        <br>
         <div class="box-body">
           <!-- text input -->
           <div class="row">

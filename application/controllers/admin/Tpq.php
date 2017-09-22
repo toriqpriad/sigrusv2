@@ -50,9 +50,9 @@ class tpq extends admin
     }
 
 
-    public function get_tpq_position_option()
+    public function get_position_option()
     {
-        $dest_table_as = 'tpq_position as t';
+        $dest_table_as = 'position as t';
         $select_values = array('t.name as position_name','t.id as position_id',);
         $params = new stdClass();
         $params->dest_table_as = $dest_table_as;
@@ -120,15 +120,15 @@ class tpq extends admin
         $params_update->where_tables = array($where);
         $update_logo_cover = $this->data_model->update($params_update);
 
-        $tpq_position = $this->get_tpq_position_option();
-        foreach ($tpq_position as $each) {
+        $position = $this->get_position_option();
+        foreach ($position as $each) {
             $add_position_tpq = array(
                 "id_tpq" => $tpq_id,
-                "id_tpq_position" => $each->position_id,
+                "id_position" => $each->position_id,
                 "name" => "",
                 "update_at" => date('d-m-Y h:m')
             );
-            $dest_table = 'tpq_position_person';
+            $dest_table = 'position_person';
             $add = $this->data_model->add($add_position_tpq, $dest_table);
             $add_position_tpq = "";
         }
@@ -209,9 +209,9 @@ class tpq extends admin
             }
 
             $params_pgrs = new stdClass();
-            $params_pgrs->dest_table_as = 'tpq_position_person as tpp';
+            $params_pgrs->dest_table_as = 'position_person as tpp';
             $params_pgrs->select_values = array('tpp.id as id_person', 'tpp.name as name_person', 'tp.name as name_position','tp.id as id_position');
-            $join1 = array("join_with" => 'tpq_position as tp', "join_on" => 'tpp.id_tpq_position = tp.id', "join_type" => 'RIGHT OUTER');
+            $join1 = array("join_with" => 'position as tp', "join_on" => 'tpp.id_position = tp.id', "join_type" => 'RIGHT OUTER');
             $where1 = array("where_column" => 'tpp.id_tpq', "where_value" => $parameter);
             $where2 = array("where_column" => 'tpp.id', "where_value" => null);
             $params_pgrs->join_tables = array($join1);
@@ -320,17 +320,17 @@ class tpq extends admin
                 $params_delete = new stdClass();
                 $where1 = array("where_column" => 'id_tpq', "where_value" => $id);
                 $params_delete->where_tables = array($where1);
-                $params_delete->table = 'tpq_position_person';
+                $params_delete->table = 'position_person';
                 $delete = $this->data_model->delete($params_delete);
             }
             foreach ($position_data as $data) {
                 $new_data = array(
-                    "id_tpq_position" => $data->position_id,
+                    "id_position" => $data->position_id,
                     "id_tpq" => $id,
                     "name" => $data->position_person,
                     "update_at" => date('d-m-Y h:m')
                 );
-                $dest_table_sc = 'tpq_position_person';
+                $dest_table_sc = 'position_person';
                 $add_sc = $this->data_model->add($new_data, $dest_table_sc);
             }
         }
@@ -379,7 +379,7 @@ class tpq extends admin
 
         $teacher_del = $this->data_model->delete_now('teacher','id_tpq',$id);
         $student_del = $this->data_model->delete_now('student','id_tpq',$id);
-        $position_del = $this->data_model->delete_now('tpq_position_person','id_tpq',$id);
+        $position_del = $this->data_model->delete_now('position_person','id_tpq',$id);
         $del = $this->data_model->delete_now('tpq','id',$id);
 
         if($cover)
@@ -417,7 +417,7 @@ class tpq extends admin
 
     $teacher_del = $this->data_model->delete_now('teacher','id_tpq',$id);
     $student_del = $this->data_model->delete_now('student','id_tpq',$id);
-    $position_del = $this->data_model->delete_now('tpq_position_person','id_tpq',$id);
+    $position_del = $this->data_model->delete_now('position_person','id_tpq',$id);
     $del = $this->data_model->delete_now('tpq','id',$id);
 
     if($cover)

@@ -29,7 +29,7 @@
         <!-- /.box-body -->
       </div>
       <div class="box-footer">
-        <a type="submit" class="pull-left btn btn-flat btn-warning" href="<?=base_url().'admin/tpq_position/'?>"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+        <a type="submit" class="pull-left btn btn-flat btn-warning" href="<?=base_url().'admin/division/'?>"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
         <button type="submit" class="pull-right btn btn-flat btn-success" onclick="post()"><i class="fa fa-save"></i>&nbsp; Simpan</button>
       </div>
       <!-- /.box -->

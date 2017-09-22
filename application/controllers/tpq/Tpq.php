@@ -29,7 +29,7 @@ class tpq extends CI_Controller
     $this->load->view('tpq/include/function');
     $this->load->view('tpq/include/modal');
     $this->load->view('tpq/include/top_menu');
-    $this->load->view('tpq/include/sidebar_menu');
+    // $this->load->view('tpq/include/sidebar_menu');
     if ($function_location == true) {
       $this->load->view($function_location);
     }
@@ -61,6 +61,7 @@ class tpq extends CI_Controller
   {
     $this->data ['active_page'] = "dashboard";
     $this->data ['title_page'] = "Dashboard";
+    $this->data ['records'] = $this->profile();
     $this->display('tpq/dashboard/dashboard', 'tpq/dashboard/function');
   }
 
@@ -95,7 +96,7 @@ class tpq extends CI_Controller
     );
 
     $tpq_position = array(
-      "label" => "Pengurus TPQ",
+      "label" => "Pengurus",
       "link" => site_url() . 'tpq/position/',
       "page_name" => "position",
       "icon" => "fa fa-cubes 1x"
@@ -140,4 +141,38 @@ class tpq extends CI_Controller
     $get = $this->data_model->get($params);
     return $get['results'];
   }
+
+  public function profile()
+  {
+    $parameter = $this->data['tpq_id'];
+    $params = new stdClass();
+    $params->dest_table_as = 'tpq as p';
+    $params->select_values = array('p.*');
+    $params->where_tables = array(array("where_column" => 'p.id', "where_value" => $parameter));
+    $get = $this->data_model->get($params);
+    if ($get['results'][0] != "") {
+      $logo = $get['results'][0]->logo;
+      $cover = $get['results'][0]->cover;
+      $get["results"][0]->logo_old = $get['results'][0]->logo;
+      $dir = BACKEND_IMAGE_UPLOAD_FOLDER;
+      $image_dir_logo =  $dir.'logo/'. $logo;
+      $check_thumb = check_if_empty($logo, $image_dir_logo);
+      if ($check_thumb == NO_IMG_NAME) {
+        $get["results"][0]->logo = BASE_URL.BACKEND_IMAGE_UPLOAD_FOLDER.'dummy_logo.png';
+      } else {
+        $get["results"][0]->logo = BASE_URL . $dir.'logo/'.$check_thumb;
+      }
+      $get["results"][0]->cover_old = $get['results'][0]->cover;
+      $image_dir_cover = $dir.'cover/' . $cover;
+      $check_thumb = check_if_empty($cover, $image_dir_cover);
+      if ($check_thumb == NO_IMG_NAME) {
+        $get["results"][0]->cover = BASE_URL.BACKEND_IMAGE_UPLOAD_FOLDER.'dummy_cover.png';
+      } else {
+        $get["results"][0]->cover = BASE_URL. $dir.'cover/' . $check_thumb;
+      }
+
+      return $get['results'][0];
+    }
+  }
+
 }

@@ -72,6 +72,15 @@ $route['admin/socmed/(:any)'] = 'admin/socmed/detail';
 
 
 // pengurus PPG
+$route['admin/division'] = 'admin/division/index';
+$route['admin/division/json'] = 'admin/division/json';
+$route['admin/division/add'] = 'admin/division/add';
+$route['admin/division/post'] = 'admin/division/post';
+$route['admin/division/update'] = 'admin/division/update';
+$route['admin/division/delete'] = 'admin/division/delete';
+$route['admin/division/(:any)'] = 'admin/division/detail';
+
+//pengurus TPQ
 $route['admin/position'] = 'admin/position/index';
 $route['admin/position/json'] = 'admin/position/json';
 $route['admin/position/add'] = 'admin/position/add';
@@ -79,15 +88,6 @@ $route['admin/position/post'] = 'admin/position/post';
 $route['admin/position/update'] = 'admin/position/update';
 $route['admin/position/delete'] = 'admin/position/delete';
 $route['admin/position/(:any)'] = 'admin/position/detail';
-
-//pengurus TPQ
-$route['admin/tpq_position'] = 'admin/tpq_position/index';
-$route['admin/tpq_position/json'] = 'admin/tpq_position/json';
-$route['admin/tpq_position/add'] = 'admin/tpq_position/add';
-$route['admin/tpq_position/post'] = 'admin/tpq_position/post';
-$route['admin/tpq_position/update'] = 'admin/tpq_position/update';
-$route['admin/tpq_position/delete'] = 'admin/tpq_position/delete';
-$route['admin/tpq_position/(:any)'] = 'admin/tpq_position/detail';
 
 
 //setting

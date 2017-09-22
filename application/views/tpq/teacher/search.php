@@ -8,16 +8,7 @@
 <script src="<?= BACKEND_STATIC_FILES ?>bower_components/jquery-table2excel/jquery.table2excel.min.js"></script>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h4>
-      <?php
-      if(isset($title_page)){
-        echo $title_page;
-      }
-      ?>
-    </h4>
-
-  </section>
+  <br>
 
   <!-- Main content -->
   <section class="content">

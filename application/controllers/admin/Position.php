@@ -24,15 +24,15 @@ class position extends admin
 
 
     public function index()
-    {        
-        $this->data['title_page'] = "Pengurus PPG";
+    {
+        $this->data['title_page'] = "Pengurus TPQ";
         parent::display('admin/position/index', 'admin/position/function', true);
     }
 
 
     public function add()
     {
-        $this->data['title_page'] = "Tambah Pengurus PPG";
+        $this->data['title_page'] = "Tambah Pengurus TPQ";
         parent::display('admin/position/add', 'admin/position/function', false);
     }
 
@@ -63,17 +63,6 @@ class position extends admin
         echo json_encode($result);
     }
 
-    public function get_persons($id_position){
-        $id = $id_position;        
-        $params = new stdClass();
-        $params->dest_table_as = 'position_person as p';
-        $params->select_values = array('p.*');
-        $params->where_tables = array(array("where_column" => 'p.position_id', "where_value" => $id));
-        $get = $this->data_model->get($params);
-        return $get['results'];
-    }
-
-
     public function detail()
     {
         $parameter = $this->uri->segment(3);
@@ -83,9 +72,8 @@ class position extends admin
         $params->where_tables = array(array("where_column" => 'p.id', "where_value" => $parameter));
         $get = $this->data_model->get($params);
         if ($get['results'][0] != "") {
-            $this->data['person'] = $this->get_persons($parameter);
             $this->data['records'] = $get['results'][0];
-            $this->data['title_page'] = $get["results"][0]->name;            
+            $this->data['title_page'] = $get["results"][0]->name;
             parent::display('admin/position/detail', 'admin/position/function');
         } else {
             redirect('/admin/404');
@@ -111,7 +99,7 @@ class position extends admin
         }
         $name = $this->input->post("name");
         $desc = $this->input->post("description");
-        $person = $this->input->post("person");
+
         $params_data = new stdClass();
         $params_data->new_data = array(
             "name" => $name,
@@ -122,21 +110,6 @@ class position extends admin
         $params_data->where_tables = array($where);
         $params_data->table_update = 'position';
         $update = $this->data_model->update($params_data);
-
-        if($person != ""){
-            $del = $this->data_model->delete_now('position_person','position_id',$id);
-            $person_data = json_decode($person);
-            foreach($person_data as $each){                
-                $d = array(
-                    "name" => $each->name,
-                    "contact" => $each->contact,
-                    "update_at" => date('d-m-Y h:m'),
-                    "position_id" => $id
-                    );
-                $dt = 'position_person';
-                $add = $this->data_model->add($d, $dt);
-            }
-        }
 
         if ($update['response'] == OK_STATUS) {
             $params = new stdClass();
@@ -154,7 +127,7 @@ class position extends admin
     public function delete()
     {
         $id = $this->input->post("id");        
-        $person_del = $this->data_model->delete_now('position_person','position_id',$id);
+        $person_del = $this->data_model->delete_now('position_person','id_position',$id);
         $del = $this->data_model->delete_now('position','id',$id);    
         if ($del['response'] == OK_STATUS) {
             $result = response_success();

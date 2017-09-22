@@ -8,25 +8,23 @@ function table_render() {
     var table = $('.table1').DataTable({
       ajax: url + "position/json",
       columns: [
-      { data: null },
-      { data: 'name' },
-      { data: 'update_at' },
-      { data: 'id' },
+        { data: null },
+        { data: 'name' },
+        { data: 'update_at' },
+        { data: 'id' },
       ],
       dom: 'Bfrtip',
       buttons: [
       ],
       columnDefs: [
-      {
-        "render": function (data, type, row) {
-          return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button   class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\',this)">Hapus</button>';
+        {
+          "render": function (data, type, row) {
+            return '<a href="' + detail + '/' + data + '"  class="btn btn-fill btn-sm btn-success">Detail</a>&nbsp<button   class="btn btn-fill btn-sm btn-warning" onclick="DeleteModal(\'' + data + '\',this)">Hapus</button>';
+          },
+          "targets": 3
         },
-        "targets": 3
-      },
       ]
     });
-
-    $(".alert").remove();
 
     table.on('order.dt search.dt', function () {
       table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
@@ -39,7 +37,7 @@ function table_render() {
 function post() {
   var name = $('#name').val();
   var desc = $('#desc').val();
-  empty_validate(name, 'Nama');  
+  empty_validate(name, 'Nama');
   var input = new FormData();
   input.append('name', name);
   input.append('desc', desc);
@@ -52,18 +50,10 @@ function update() {
   var name = $('#name').val();
   var desc = $('#desc').val();
   empty_validate(name, 'Nama');
-  var position_data = [];
-  $(".position_data").each(function() {    
-    var name = $(this).find('.name_person').val();
-    var contact = $(this).find('.contact_person').val();
-    var data = {'name' : name , 'contact' : contact};
-    position_data.push(data)
-  });  
   var input = new FormData();
   input.append('name', name);
   input.append('desc', desc);
   input.append('id', id);
-  input.append('person', JSON.stringify(position_data));
   var post_url = 'position/update';
   ServerPost(post_url, input, true);
 }
@@ -86,15 +76,4 @@ function Delete(row) {
   var delete_url = 'position/delete';
   ServerPost(delete_url, input);  
   $(row).closest('tr').remove();
-}
-
-function add_person_table(){
-  $('#person_table tr:last').after('<tr class="position_data"><td><input type="text" class="name_person form-control"></td>'+
-    '<td><input type="text" class="contact_person form-control"></td>'+
-    '<td><button class="btn btn-danger" onclick="delete_row(this)">Hapus</button></td></tr>');
-};
-
-function delete_row(e){
-  console.log($(e).closest('tr').remove());  
-
 }

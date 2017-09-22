@@ -9,16 +9,7 @@
 <!-- <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script> -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h4>
-      <?php
-      if(isset($title_page)){
-        echo $title_page;
-      }
-      ?>
-    </h4>
-
-  </section>
+  <br>
 
   <!-- Main content -->
   <section class="content">

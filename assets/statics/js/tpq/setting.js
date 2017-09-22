@@ -44,7 +44,6 @@ function update()
   input.append('cover', cover);
   input.append('old_logo', old_logo);
   input.append('old_cover', old_cover);
-
   var post_url = 'setting/update';
   ServerPost(post_url,input,true);
 }
@@ -52,7 +51,7 @@ function update()
 function showPassword(link){
   $('#PasswordModal').modal(
     { backdrop: false}
-  );
+    );
 }
 
 function checkyoutubeapi(){
@@ -84,5 +83,7 @@ function ChangePass(){
   input.append('new_pass', new_pass);
   var post_url = 'setting/change_password';
   ServerPost(post_url,input);
+  $('#old_pass').val('');
+  $('#new_pass').val('')
 
 }

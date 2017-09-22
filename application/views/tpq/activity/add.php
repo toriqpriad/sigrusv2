@@ -4,18 +4,9 @@
 <div class="content-wrapper">
   <section class="content">
     <!-- Default box -->
+    <br>
     <div class="box box-success">
-      <div class="box-header with-border">
-        <h3 class="box-title">
-          <b>
-            <?php
-            if (isset($title_page)) {
-              echo $title_page;
-            }
-            ?>
-          </b>
-        </h3>
-      </div>
+      
       <div class="box-body">
 
         <div class="row">

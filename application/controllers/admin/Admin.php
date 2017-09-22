@@ -118,17 +118,17 @@ class admin extends CI_Controller
       "icon" => "fa fa-users 1x"
       );
 
-    $tpq_position = array(
+    $position = array(
       "label" => "Pengurus TPQ",
-      "link" => site_url() . 'admin/tpq_position/',
-      "page_name" => "tpq_position",
+      "link" => site_url() . 'admin/position/',
+      "page_name" => "position",
       "icon" => "fa fa-cubes 1x"
       );
 
     $this_position = array(
-      "label" => "Pengurus PPG",
-      "link" => site_url() . 'admin/position/',
-      "page_name" => "position",
+      "label" => "Bidang PPG",
+      "link" => site_url() . 'admin/division/',
+      "page_name" => "division",
       "icon" => "fa fa-handshake-o 1x"
       );
 
@@ -147,7 +147,7 @@ class admin extends CI_Controller
       "icon" => "fa fa-cog 1x"
       );
 
-    $array = [$dashboard,$pc,$tpq,$teacher,$student,$tpq_position ,$this_position,$socmed,$setting];
+    $array = [$dashboard,$pc,$tpq,$teacher,$student,$position ,$this_position,$socmed,$setting];
     return $array;
   }
 

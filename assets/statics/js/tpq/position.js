@@ -4,8 +4,7 @@ function update() {
   $(".position_data").each(function() {
     var position_value = {"position_id":  $(this).attr('id'), "position_person" : $(this).val()};
     position_data.push(position_value);
-  });
-  console.log(position_data);
+  });  
   var input = new FormData();
   input.append('position_data', JSON.stringify(position_data));
   var post_url = 'position/update';
