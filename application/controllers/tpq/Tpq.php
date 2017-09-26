@@ -59,9 +59,18 @@ class tpq extends CI_Controller
   }
   public function dashboard()
   {
-    $this->data ['active_page'] = "dashboard";
-    $this->data ['title_page'] = "Dashboard";
-    $this->data ['records'] = $this->profile();
+    $this->data['active_page'] = "dashboard";
+    $this->data['title_page'] = "Dashboard";
+    $this->data['records'] = $this->profile();
+    $where = array('where_column'=> 'id_tpq','where_value'=> $this->data['tpq_id']);    
+    $where_cb = array('where_column'=> 'student_category','where_value'=> 'C');
+    $where_pr = array('where_column'=> 'student_category','where_value'=> 'P');
+    $where_rm = array('where_column'=> 'student_category','where_value'=> 'R');
+    $tc = $this->count_component('teacher',array($where));
+    $cb = $this->count_component('student',array($where,$where_cb));        
+    $pr = $this->count_component('student',array($where,$where_pr));        
+    $rm = $this->count_component('student',array($where,$where_rm));    
+    $this->data['component'] = array("tc"=>$tc,"cb"=> $cb, "pr"=>$pr, "rm" => $rm);        
     $this->display('tpq/dashboard/dashboard', 'tpq/dashboard/function');
   }
 
@@ -173,6 +182,11 @@ class tpq extends CI_Controller
 
       return $get['results'][0];
     }
+  }
+
+  public function count_component($table,$where){
+    $ret = $this->data_model->get_count($table,$where);        
+    return $ret['results'];
   }
 
 }

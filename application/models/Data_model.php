@@ -179,6 +179,7 @@ class data_model extends CI_Model {
         if ($query == TRUE) {
             $response = OK_STATUS;
             $data = array("response" => $response, "results" => $query);
+            // $data = array("response" => $response,"log" => $this->db->last_query());
         } else {
             $response = FAIL_STATUS;
             // $data = array("response" => $response,"log" => $this->db->last_query());
